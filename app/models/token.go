@@ -8,7 +8,3 @@ type JWTClaims struct {
 	Permissions []string `json:"permissions"`
 	jwt.RegisteredClaims
 }
-
-type Users struct {
-	id int `json:"id"`
-}
