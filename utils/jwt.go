@@ -1,12 +1,12 @@
 package utils
 
 import (
-	"uas/app/models"
-	"time"
 	"os"
+	"strconv"
+	"time"
 	"log"
-	"strings"
 
+	"uas/app/models"
 	"github.com/golang-jwt/jwt/v5"
 )
 
@@ -18,43 +18,32 @@ func GetJWTSecret() []byte {
 	return []byte(secret)
 }
 
-func GenerateAccessToken(user models.Users) (string, error) {
+func GenerateToken(userID, roleID string, permissions []string) (string, error) {
+	expHour, _ := strconv.Atoi(os.Getenv("JWT_EXPIRED"))
+
 	claims := models.JWTClaims{
-		UserID:   user.ID,
-		Username: user.Username,
-		Role:     strings.ToLower(user.Role), 
+		UserID:      userID,
+		RoleID:      roleID,
+		Permissions: permissions,
 		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(5 * time.Minute)), 
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Duration(expHour) * time.Hour)),
 			IssuedAt:  jwt.NewNumericDate(time.Now()),
 		},
 	}
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString(GetJWTSecret()) 
-}
 
-func GenerateRefreshToken(user models.Users) (string, error) {
-	claims := jwt.RegisteredClaims{
-		Subject:   user.Username,
-		ExpiresAt: jwt.NewNumericDate(time.Now().Add(7 * 24 * time.Hour)),
-		IssuedAt:  jwt.NewNumericDate(time.Now()),
-	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return token.SignedString(GetJWTSecret())
 }
 
 func ValidateToken(tokenString string) (*models.JWTClaims, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &models.JWTClaims{}, func(token *jwt.Token) (interface{}, error) {
-		return GetJWTSecret(), nil 
+		return GetJWTSecret(), nil
 	})
-	if err != nil {
+
+	if err != nil || !token.Valid {
 		return nil, err
 	}
-	if claims, ok := token.Claims.(*models.JWTClaims); ok && token.Valid {
-		return claims, nil
-	}
-	return nil, jwt.ErrInvalidKey
 
+	claims := token.Claims.(*models.JWTClaims)
+	return claims, nil
 }
-
-
-

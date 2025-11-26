@@ -3,6 +3,7 @@ package middleware
 import(
 	"uas/utils"
 	"strings"
+	"uas/helper"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -10,101 +11,42 @@ import(
 func AuthRequired() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		authHeader := c.Get("Authorization")
-		if authHeader == "" {
-			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
-				"error": "Authorization header is missing",
-			})
+
+		if authHeader == "" || !strings.HasPrefix(authHeader, "Bearer ") {
+			return helper.Unauthorized(c, "Token tidak ditemukan atau format salah")
 		}
 
-		tokenParts := strings.Split(authHeader, " ")
-		if len(tokenParts) != 2 || tokenParts[0] != "Bearer" {
-			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
-				"error": "Invalid Authorization header format",
-			})
-		}
+		tokenString := strings.TrimPrefix(authHeader, "Bearer ")
 
-		claims, err := utils.ValidateToken(tokenParts[1])
+		claims, err := utils.ValidateToken(tokenString)
 		if err != nil {
-			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
-				"error": "Token tidak valid atau expired",
-			})
+			return helper.Unauthorized(c, "Token tidak valid atau expired")
 		}
 
-		// Simpan informasi user di context
 		c.Locals("user_id", claims.UserID)
-		c.Locals("username", claims.Username)
-		c.Locals("role", claims.Role)
+		c.Locals("role_id", claims.RoleID)
+		c.Locals("permissions", claims.Permissions)
 
 		return c.Next()
 	}
 }
-		
 
-func AdminOnly() fiber.Handler {
+	
+func RequirePermission(permission string) fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		role, ok := c.Locals("role").(string)
-		if !ok || role != "admin" {
-			return c.Status(fiber.StatusForbidden).JSON(fiber.Map{
-				"error": "Akses ditolak.",
-			})
-		}
-		return c.Next()
-	}
-}
-
-func DoseOnly() fiber.Handler {
-	return func (c *fiber.Ctx) error {
-		role, ok := c.Locals("dosen").(string)
-		if !ok || role != "dosen" {
-			return c.Status(fiber.StatusForbidden).JSON(fiber.Map{
-				"error": "Akses ditolak.",
-			})
-		}
-		return c.Next()
-	}
-}
-
-
-func RoleOnly(allowedRoles ...string) fiber.Handler {
-	return func(c *fiber.Ctx) error {
-		role, ok := c.Locals("role").(string)
+		perms, ok := c.Locals("permissions").([]string)
 		if !ok {
-			return c.Status(fiber.StatusForbidden).JSON(fiber.Map{
-				"error": "Role tidak ditemukan dalam token",
-			})
+			return helper.Forbidden(c, "Permissions tidak ditemukan")
 		}
 
-		role = strings.ToLower(role)
-		
-		for _, r := range allowedRoles {
-			if role == r {
+		for _, p := range perms {
+			if p == permission {
 				return c.Next()
 			}
 		}
 
-		return c.Status(fiber.StatusForbidden).JSON(fiber.Map{
-			"error": "Akses ditolak. Role tidak diizinkan",
-		})
+		return helper.Forbidden(c, "Anda tidak memiliki izin untuk aksi ini")
 	}
 }
 
-func JWTProtected() fiber.Handler {
-	return func(c *fiber.Ctx) error {
-		authHeader := c.Get("Authorization")
-		if authHeader == "" {
-			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
-				"error": "Harap Login terlebih dahulu",
-			})
-		}
 
-		tokenString := strings.TrimPrefix(authHeader, "Bearer ")
-		claims, err := utils.ValidateToken(tokenString)
-		if err != nil {
-			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "Invalid or expired token"})
-		}
-
-		c.Locals("user", claims)
-		c.Locals("userToken", tokenString)
-		return c.Next()
-	}
-}
