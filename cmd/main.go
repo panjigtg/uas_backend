@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import "uas/config"
 
 func main() {
-	fmt.Println("Hello, World!")
+	app := config.Bootstrap()
+	
+	app.Listen(":3000")
 }
