@@ -18,6 +18,10 @@ func AuthRequired() fiber.Handler {
 
 		tokenString := strings.TrimPrefix(authHeader, "Bearer ")
 
+		if utils.TokenBlacklist[tokenString] {
+			return helper.Unauthorized(c, "Token sudah tidak berlaku")
+		}
+
 		claims, err := utils.ValidateToken(tokenString)
 		if err != nil || claims.UserID == "" {
 			return helper.Unauthorized(c, "Token tidak valid atau expired")

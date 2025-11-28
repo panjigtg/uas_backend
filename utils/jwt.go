@@ -47,3 +47,16 @@ func ValidateToken(tokenString string) (*models.JWTClaims, error) {
 	claims := token.Claims.(*models.JWTClaims)
 	return claims, nil
 }
+
+func GenerateRefreshToken(userID string) (string, error) {
+	expHour, _ := strconv.Atoi(os.Getenv("JWT_REFRESH_EXPIRED"))
+
+	claims := jwt.RegisteredClaims{
+		Subject:  userID,
+		ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Duration(expHour) * time.Hour)),
+		IssuedAt: jwt.NewNumericDate(time.Now()),
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	return token.SignedString([]byte(os.Getenv("JWT_REFRESH_SECRET")))
+}

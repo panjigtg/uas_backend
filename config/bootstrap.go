@@ -12,7 +12,7 @@ func Bootstrap() *fiber.App {
 
 	container := BuildContainer(db.Postgres)
 
-	routes.RegisterRoutes(app, container.AuthService)
+	routes.AuthRoutes(app, container.AuthService)
 
 	return app
 }

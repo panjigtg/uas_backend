@@ -1,15 +1,15 @@
 package models
 
 type RegistReq struct {
-	Username string `json:"username"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
-	FullName string `json:"full_name"`
+	Username string `json:"username" validate:"required,min=6,max=30"`
+	Email    string `json:"email" validate:"required,email"`
+	Password string `json:"password" validate:"required,min=8"`
+	FullName string `json:"full_name" validate:"required,min=6"`
 }
 
 type LoginReq struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Email    string `json:"email" validate:"required,email"`
+	Password string `json:"password" validate:"required"`
 }
 
 type UserProfile struct {
@@ -21,9 +21,16 @@ type UserProfile struct {
 	Permissions []string `json:"permissions"`
 }
 
-
 type LoginResponse struct {
-	User  			UserProfile `json:"user"`
-	Token 			string      `json:"token"`
-	RefreshToken 	string      `json:"refresh_token"`
+	User         UserProfile `json:"user"`
+	Token        string      `json:"token"`
+	RefreshToken string      `json:"refresh_token"`
+}
+
+type RefreshReq struct {
+	RefreshToken string `json:"refresh_token" validate:"required"`
+}
+
+type RefreshResp struct {
+	Token 		string `json:"refresh_token" validate:"required"`
 }

@@ -119,3 +119,49 @@ func (r *AuthRepository) GetRoleIDByName(name string) (string, error) {
 	err := r.DB.QueryRow(query, name).Scan(&roleID)
 	return roleID, err
 }
+
+func (r *AuthRepository) GetUserByID(userID string) (*models.Users, error) {
+	query := `
+		SELECT id, username, email, password_hash, full_name, role_id, is_active
+		FROM users
+		WHERE id = $1
+	`
+
+	u := &models.Users{}
+	err := r.DB.QueryRow(query, userID).Scan(
+		&u.ID,
+		&u.Username,
+		&u.Email,
+		&u.PasswordHash,
+		&u.FullName,
+		&u.RoleID,
+		&u.IsActive,
+	)
+
+	return u, err
+}
+
+func (r *AuthRepository) GetUserProfileByID(userID string) (*models.UserWithRole, error) {
+	query := `
+	SELECT 
+		u.id,
+		u.username,
+		u.email,
+		u.full_name,
+		r.name AS role
+	FROM users u
+	JOIN roles r ON u.role_id = r.id
+	WHERE u.id = $1
+	`
+
+	u := &models.UserWithRole{}
+	err := r.DB.QueryRow(query, userID).Scan(
+		&u.ID,
+		&u.Username,
+		&u.Email,
+		&u.FullName,
+		&u.RoleName,
+	)
+
+	return u, err
+}

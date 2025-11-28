@@ -5,7 +5,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func RegisterRoutes(app *fiber.App, authService *services.AuthService) {
+func GlobalRoutes(app *fiber.App, authService *services.AuthService) {
 	api := app.Group("/api/v1")
 
 	api.Post("/register", authService.Register)
