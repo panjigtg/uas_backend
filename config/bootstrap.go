@@ -8,18 +8,12 @@ import (
 
 func Bootstrap() *fiber.App {
 	app := InitApp()
-
-
 	db := InitDatabase()
 
-	repositories := InitRepositories(
-		db.Postgres,
-		db.Mongo,
-	)
+	container := BuildContainer(db.Postgres)
 
-	services := InitServices(repositories)
-
-	routes.RegisterRoutes(app, services)
+	routes.RegisterRoutes(app, container.AuthService)
 
 	return app
 }
+

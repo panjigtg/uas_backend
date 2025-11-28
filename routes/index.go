@@ -1,13 +1,13 @@
 package routes
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"uas/app/services"
+	"github.com/gofiber/fiber/v2"
+)
 
-func RegisterRoutes(app *fiber.App) {
+func RegisterRoutes(app *fiber.App, authService *services.AuthService) {
 	api := app.Group("/api/v1")
 
-	api.Get("/health", func(c *fiber.Ctx) error {
-		return c.JSON(fiber.Map{
-			"status": "ok",
-		})
-	})
+	api.Post("/register", authService.Register)
+	api.Post("/login", authService.Login)
 }

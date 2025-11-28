@@ -13,13 +13,13 @@ func AuthRequired() fiber.Handler {
 		authHeader := c.Get("Authorization")
 
 		if authHeader == "" || !strings.HasPrefix(authHeader, "Bearer ") {
-			return helper.Unauthorized(c, "Token tidak ditemukan atau format salah")
+			return helper.Unauthorized(c, "Token tidak ditemukan")
 		}
 
 		tokenString := strings.TrimPrefix(authHeader, "Bearer ")
 
 		claims, err := utils.ValidateToken(tokenString)
-		if err != nil {
+		if err != nil || claims.UserID == "" {
 			return helper.Unauthorized(c, "Token tidak valid atau expired")
 		}
 
@@ -34,8 +34,11 @@ func AuthRequired() fiber.Handler {
 	
 func RequirePermission(permission string) fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		perms, ok := c.Locals("permissions").([]string)
-		if !ok {
+		permsAny := c.Locals("permissions")
+
+		perms, ok := permsAny.([]string)
+
+		if !ok || permsAny == nil {
 			return helper.Forbidden(c, "Permissions tidak ditemukan")
 		}
 
