@@ -83,20 +83,20 @@ func (r *UserRepository) GetByID(id string) (*models.UserWithRole, error) {
 func (r *UserRepository) Update(id string, data models.UserUpdateRequest) error {
 	query := `
 	UPDATE users 
-	SET username=$1, email=$2, full_name=$3, role_id=$4, updated_at=NOW()
-	WHERE id=$5;
+	SET username=$1, email=$2, full_name=$3, updated_at=NOW()
+	WHERE id=$4;
 	`
 
 	_, err := r.DB.Exec(query,
 		data.Username,
 		data.Email,
 		data.FullName,
-		data.RoleID,
 		id,
 	)
 
 	return err
 }
+
 
 func (r *UserRepository) Create(user *models.Users) error {
 	query := `
