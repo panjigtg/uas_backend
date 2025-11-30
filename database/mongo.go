@@ -31,7 +31,7 @@ func MongoConnections() *mongo.Database {
 		log.Fatal("Can't Connect:", err)
 	}
 
-	log.Println("Mongo Success")
+	log.Println("mongo connect")
 
 	return client.Database(os.Getenv("MONGO_DB"))
 }

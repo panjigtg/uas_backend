@@ -28,6 +28,6 @@ func PostgresConnections() *sql.DB {
 	if err := db.Ping(); err != nil {
 		log.Fatalf("Can't Connect: %v", err)
 	}
-	log.Println("Succes Connect")
+	log.Println("pg connect")
 	return db
 }

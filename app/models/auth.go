@@ -32,5 +32,5 @@ type RefreshReq struct {
 }
 
 type RefreshResp struct {
-	Token 		string `json:"refresh_token" validate:"required"`
+	AccessToken string `json:"access_token"`
 }

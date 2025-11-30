@@ -27,17 +27,16 @@ func (s *AuthService) Register(c *fiber.Ctx) error {
 		return helper.BadRequest(c, "Format request tidak valid", err.Error())
 	}
 
-	// Validasi sederhana
 	if req.Email == "" || req.Password == "" || req.Username == "" {
 		return helper.BadRequest(c, "Semua field wajib diisi", nil)
 	}
 
+	// Ambil role mahasiswa dari database
 	roleID, err := s.repo.GetRoleIDByName("Mahasiswa")
 	if err != nil {
 		return helper.InternalServerError(c, "Role default tidak ditemukan")
 	}
 
-	// Hash password
 	hashedPassword, err := utils.HashPassword(req.Password)
 	if err != nil {
 		return helper.InternalServerError(c, "Gagal memproses password")
@@ -65,23 +64,24 @@ func (s *AuthService) Login(c *fiber.Ctx) error {
 		return helper.BadRequest(c, "Format request tidak valid", err.Error())
 	}
 
-	user, err := s.repo.GetUserWithRole(req.Email)
+	user, err := s.repo.GetUserByEmail(req.Email)
 	if err != nil {
 		return helper.Unauthorized(c, "Email tidak ditemukan")
-	}
-
-	if !user.IsActive {
-		return helper.Forbidden(c, "Akun tidak aktif")
 	}
 
 	if !utils.CheckPassword(req.Password, user.PasswordHash) {
 		return helper.Unauthorized(c, "Password salah")
 	}
 
+	if !user.IsActive {
+		return helper.Forbidden(c, "Akun tidak aktif")
+	}
+
 	permissions, _ := s.repo.GetPermissionsByUserID(user.ID)
 
 	token, err := utils.GenerateToken(user.ID, user.RoleName, permissions)
 	refreshToken, _ := utils.GenerateRefreshToken(user.ID)
+
 	if err != nil {
 		return helper.InternalServerError(c, "Gagal membuat token")
 	}
@@ -95,15 +95,15 @@ func (s *AuthService) Login(c *fiber.Ctx) error {
 			Role:        user.RoleName,
 			Permissions: permissions,
 		},
-		Token: token,
-		RefreshToken: refreshToken,
+		Token:         token,
+		RefreshToken:  refreshToken,
 	}
 
 	return helper.Success(c, "Login berhasil", response)
 }
 
-func (s *AuthService) Refresh(c *fiber.Ctx) error {
 
+func (s *AuthService) Refresh(c *fiber.Ctx) error {
 	authHeader := c.Get("Authorization")
 	if authHeader == "" || !strings.HasPrefix(authHeader, "Bearer ") {
 		return helper.Unauthorized(c, "Refresh token tidak ditemukan")
@@ -112,7 +112,7 @@ func (s *AuthService) Refresh(c *fiber.Ctx) error {
 	refreshToken := strings.TrimPrefix(authHeader, "Bearer ")
 
 	if utils.TokenBlacklist[refreshToken] {
-		return helper.Unauthorized(c, "sudah logout")
+		return helper.Unauthorized(c, "Token sudah logout")
 	}
 
 	token, err := jwt.Parse(refreshToken, func(t *jwt.Token) (interface{}, error) {
@@ -133,12 +133,13 @@ func (s *AuthService) Refresh(c *fiber.Ctx) error {
 
 	perms, _ := s.repo.GetPermissionsByUserID(userID)
 
-	newToken, _ := utils.GenerateToken(user.ID, user.RoleID, perms)
+	newToken, _ := utils.GenerateToken(user.ID, user.RoleName, perms)
 
 	return helper.Success(c, "Token diperbarui", models.RefreshResp{
-	Token: newToken,
+		AccessToken: newToken,
 	})
 }
+
 
 func (s *AuthService) Logout(c *fiber.Ctx) error {
 	authHeader := c.Get("Authorization")
@@ -147,16 +148,16 @@ func (s *AuthService) Logout(c *fiber.Ctx) error {
 	}
 
 	token := strings.TrimPrefix(authHeader, "Bearer ")
-
 	utils.TokenBlacklist[token] = true
 
 	return helper.Success(c, "Logout berhasil", nil)
 }
 
+
 func (s *AuthService) Profile(c *fiber.Ctx) error {
 	userID := c.Locals("user_id").(string)
 
-	user, err := s.repo.GetUserProfileByID(userID)
+	user, err := s.repo.GetUserByID(userID)
 	if err != nil {
 		return helper.NotFound(c, "User tidak ditemukan")
 	}
@@ -174,3 +175,4 @@ func (s *AuthService) Profile(c *fiber.Ctx) error {
 
 	return helper.Success(c, "Profil berhasil diambil", response)
 }
+

@@ -1,6 +1,7 @@
 package psql
 
 import (
+	"uas/app/repository"
 	"database/sql"
 	"uas/app/models"
 )
@@ -9,7 +10,7 @@ type AuthRepository struct {
 	DB *sql.DB
 }
 
-func NewAuthRepo(db *sql.DB) *AuthRepository {
+func NewAuthRepo(db *sql.DB) repository.AuthRepository {
 	return &AuthRepository{DB: db}
 }
 
@@ -30,29 +31,7 @@ func (r *AuthRepository) Register(user *models.Users) error {
 	return err
 }
 
-func (r *AuthRepository) GetUserByEmail(email string) (*models.Users, error) {
-	query := `
-	SELECT id, username, email, password_hash, full_name, role_id, is_active
-	FROM users
-	WHERE email = $1
-	`
-
-	u := &models.Users{}
-
-	err := r.DB.QueryRow(query, email).Scan(
-		&u.ID,
-		&u.Username,
-		&u.Email,
-		&u.PasswordHash,
-		&u.FullName,
-		&u.RoleID,
-		&u.IsActive,
-	)
-
-	return u, err
-}
-
-func (r *AuthRepository) GetUserWithRole(email string) (*models.UserWithRole, error) {
+func (r *AuthRepository) GetUserByEmail(email string) (*models.UserWithRole, error) {
 	query := `
 	SELECT 
 		u.id,
@@ -68,7 +47,6 @@ func (r *AuthRepository) GetUserWithRole(email string) (*models.UserWithRole, er
 	`
 
 	u := &models.UserWithRole{}
-
 	err := r.DB.QueryRow(query, email).Scan(
 		&u.ID,
 		&u.Username,
@@ -82,8 +60,38 @@ func (r *AuthRepository) GetUserWithRole(email string) (*models.UserWithRole, er
 	return u, err
 }
 
-func (r *AuthRepository) GetPermissionsByUserID(userID string) ([]string, error) {
 
+func (r *AuthRepository) GetUserByID(userID string) (*models.UserWithRole, error) {
+	query := `
+	SELECT 
+		u.id,
+		u.username,
+		u.email,
+		u.password_hash,
+		u.full_name,
+		r.name AS role,
+		u.is_active
+	FROM users u
+	JOIN roles r ON u.role_id = r.id
+	WHERE u.id = $1
+	`
+
+	u := &models.UserWithRole{}
+	err := r.DB.QueryRow(query, userID).Scan(
+		&u.ID,
+		&u.Username,
+		&u.Email,
+		&u.PasswordHash,
+		&u.FullName,
+		&u.RoleName,
+		&u.IsActive,
+	)
+
+	return u, err
+}
+
+
+func (r *AuthRepository) GetPermissionsByUserID(userID string) ([]string, error) {
 	query := `
 	SELECT p.name
 	FROM permissions p
@@ -99,12 +107,9 @@ func (r *AuthRepository) GetPermissionsByUserID(userID string) ([]string, error)
 	defer rows.Close()
 
 	var perms []string
-
 	for rows.Next() {
 		var p string
-		if err := rows.Scan(&p); err != nil {
-			return nil, err
-		}
+		rows.Scan(&p)
 		perms = append(perms, p)
 	}
 
@@ -113,55 +118,7 @@ func (r *AuthRepository) GetPermissionsByUserID(userID string) ([]string, error)
 
 func (r *AuthRepository) GetRoleIDByName(name string) (string, error) {
 	var roleID string
-
 	query := `SELECT id FROM roles WHERE name = $1`
-
 	err := r.DB.QueryRow(query, name).Scan(&roleID)
 	return roleID, err
-}
-
-func (r *AuthRepository) GetUserByID(userID string) (*models.Users, error) {
-	query := `
-		SELECT id, username, email, password_hash, full_name, role_id, is_active
-		FROM users
-		WHERE id = $1
-	`
-
-	u := &models.Users{}
-	err := r.DB.QueryRow(query, userID).Scan(
-		&u.ID,
-		&u.Username,
-		&u.Email,
-		&u.PasswordHash,
-		&u.FullName,
-		&u.RoleID,
-		&u.IsActive,
-	)
-
-	return u, err
-}
-
-func (r *AuthRepository) GetUserProfileByID(userID string) (*models.UserWithRole, error) {
-	query := `
-	SELECT 
-		u.id,
-		u.username,
-		u.email,
-		u.full_name,
-		r.name AS role
-	FROM users u
-	JOIN roles r ON u.role_id = r.id
-	WHERE u.id = $1
-	`
-
-	u := &models.UserWithRole{}
-	err := r.DB.QueryRow(query, userID).Scan(
-		&u.ID,
-		&u.Username,
-		&u.Email,
-		&u.FullName,
-		&u.RoleName,
-	)
-
-	return u, err
 }

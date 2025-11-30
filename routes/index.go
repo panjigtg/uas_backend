@@ -1,13 +1,20 @@
 package routes
 
 import (
-	"uas/app/services"
 	"github.com/gofiber/fiber/v2"
+	"uas/app/services"
 )
 
-func GlobalRoutes(app *fiber.App, authService *services.AuthService) {
+type RouteContainer struct {
+	AuthService *services.AuthService
+	UserService *services.UserService
+}
+
+func RegisterRoutes(app *fiber.App, c *RouteContainer) {
+	// Group utama /api/v1
 	api := app.Group("/api/v1")
 
-	api.Post("/register", authService.Register)
-	api.Post("/login", authService.Login)
+	// Daftarkan masing-masing router
+	AuthRoutes(api, c.AuthService)
+	UserRoutes(api, c.UserService)
 }

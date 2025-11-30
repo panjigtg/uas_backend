@@ -1,6 +1,7 @@
 package helper
 
 import (
+	"encoding/json"
 	"uas/app/models"
 
 	"github.com/gofiber/fiber/v2"
@@ -15,11 +16,13 @@ func logResponse(c *fiber.Ctx, statusCode int, payload interface{}) {
 		level = Log.Warn()
 	}
 
+	b, _ := json.Marshal(payload)
+
 	level.
 		Str("method", c.Method()).
 		Str("path", c.Path()).
 		Int("status", statusCode).
-		Interface("response", payload).
+		Int("size", len(b)).
 		Send()
 }
 
