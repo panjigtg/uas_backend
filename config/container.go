@@ -19,10 +19,12 @@ func BuildContainer(db *sql.DB) *Container {
 	// REPOSITORIES
 	authRepo := psql.NewAuthRepo(db)
 	userRepo := psql.NewUserRepo(db)
+	studentRepo := psql.NewStudentRepo(db)
+    lecturerRepo := psql.NewLecturerRepo(db)
 
 	// SERVICES
 	authService := services.NewAuthService(authRepo)
-	userService := services.NewUserService(userRepo)
+    userService := services.NewUserService(db, userRepo, studentRepo, lecturerRepo)
 
 	return &Container{
 		AuthService: authService,

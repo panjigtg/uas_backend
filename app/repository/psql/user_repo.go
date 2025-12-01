@@ -80,49 +80,54 @@ func (r *UserRepository) GetByID(id string) (*models.UserWithRole, error) {
 	return &u, nil
 }
 
-func (r *UserRepository) Update(id string, data models.UserUpdateRequest) error {
+
+func (r *UserRepository) Update(tx *sql.Tx, userID string, req models.UserUpdateRequest) error {
 	query := `
 	UPDATE users 
 	SET username=$1, email=$2, full_name=$3, updated_at=NOW()
 	WHERE id=$4;
 	`
 
-	_, err := r.DB.Exec(query,
-		data.Username,
-		data.Email,
-		data.FullName,
-		id,
+	_, err := tx.Exec(query,
+		req.Username,
+		req.Email,
+		req.FullName,
+		userID,
 	)
 
 	return err
 }
 
 
-func (r *UserRepository) Create(user *models.Users) error {
+func (r *UserRepository) Create(tx *sql.Tx, user *models.Users) (string, error) {
 	query := `
 	INSERT INTO users (username, email, password_hash, full_name, role_id)
-	VALUES ($1, $2, $3, $4, $5);
+	VALUES ($1, $2, $3, $4, $5)
+	RETURNING id;
 	`
 
-	_, err := r.DB.Exec(query,
+	var newID string
+	err := tx.QueryRow(query,
 		user.Username,
 		user.Email,
 		user.PasswordHash,
 		user.FullName,
 		user.RoleID,
-	)
+	).Scan(&newID)
 
-	return err
+	return newID, err
 }
 
 
-func (r *UserRepository) Delete(id string) error {
-	_, err := r.DB.Exec(`DELETE FROM users WHERE id=$1`, id)
+func (r *UserRepository) Delete(tx *sql.Tx, id string) error {
+	_, err := tx.Exec(`DELETE FROM users WHERE id=$1`, id)
 	return err
 }
 
-func (r *UserRepository) UpdateRole(id string, roleID string) error {
-	_, err := r.DB.Exec(`UPDATE users SET role_id=$1 WHERE id=$2`, roleID, id)
+func (r *UserRepository) UpdateRole(tx *sql.Tx, userID string, roleID string) error {
+	_, err := tx.Exec(`
+		UPDATE users SET role_id=$1, updated_at=NOW() WHERE id=$2
+	`, roleID, userID)
 	return err
 }
 
