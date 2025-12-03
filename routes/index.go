@@ -8,6 +8,7 @@ import (
 type RouteContainer struct {
 	AuthService *services.AuthService
 	UserService *services.UserService
+	StudentService *services.StudentService
 }
 
 func RegisterRoutes(app *fiber.App, c *RouteContainer) {
@@ -17,4 +18,5 @@ func RegisterRoutes(app *fiber.App, c *RouteContainer) {
 	// Daftarkan masing-masing router
 	AuthRoutes(api, c.AuthService)
 	UserRoutes(api, c.UserService)
+	StudentRoutes(api, c.StudentService)
 }

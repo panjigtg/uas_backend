@@ -35,11 +35,6 @@ func NewUserService(
 }
 
 
-func isUUID(s string) bool {
-    _, err := uuid.Parse(s)
-    return err == nil
-}
-
 func (s *UserService) resolveID(id string) (string, error) {
     // Jika angka → convert ke UUID berdasarkan urutan user
     if idx, err := strconv.Atoi(id); err == nil {
@@ -50,10 +45,10 @@ func (s *UserService) resolveID(id string) (string, error) {
         return uuid, nil
     }
 
-    // Jika UUID → langsung pakai
-    if isUUID(id) {
+    if utils.IsUUID(id) {
         return id, nil
     }
+
 
     return "", fiber.NewError(fiber.StatusBadRequest, "Format ID tidak valid")
 }

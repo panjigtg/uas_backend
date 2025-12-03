@@ -15,6 +15,7 @@ func Bootstrap() *fiber.App {
 	routes.RegisterRoutes(app, &routes.RouteContainer{
 		AuthService: container.AuthService,
 		UserService: container.UserService,
+		StudentService: container.StudentService,
 	})
 
 	return app

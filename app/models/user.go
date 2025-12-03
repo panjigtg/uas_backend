@@ -36,7 +36,6 @@ type UserUpdateRequest struct {
 	Username string `json:"username"`
 	Email    string `json:"email"`
 	FullName string `json:"full_name"`
-	RoleID   string `json:"role_id"`
 }
 
 type UserRoleUpdateRequest struct {

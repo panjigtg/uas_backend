@@ -11,3 +11,7 @@ type Student struct {
     AdvisorID    *string    `db:"advisor_id" json:"advisor_id"`           
     CreatedAt    time.Time  `db:"created_at" json:"created_at"`
 }
+
+type UpdateAdvisorRequest struct {
+    AdvisorID *string `json:"advisor_id"`
+}

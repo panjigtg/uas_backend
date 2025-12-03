@@ -29,6 +29,10 @@ type StudentRepository interface {
     DeleteByUserID(tx *sql.Tx, userID string) error
     RemoveAdvisor(tx *sql.Tx, lecturerID string) error
     GetByUserID(userID string) (*models.Student, error)
+	UpdateAdvisor(tx *sql.Tx, studentID string, advisorID *string) error
+	GetIDByIndex(idx int) (string, error)
+	GetByStudentID(studentID string) (*models.Student, error)
+
 }
 
 type LecturerRepository interface {
