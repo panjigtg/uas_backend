@@ -80,3 +80,80 @@ func (r *achievementReferenceRepository) Update(ctx context.Context, ref *models
     )
     return err
 }
+
+func (r *achievementReferenceRepository) FindByStudentID(ctx context.Context, studentID string) ([]models.AchievementReference, error) {
+    query := `
+        SELECT id, student_id, mongo_achievement_id, status, submitted_at,
+               verified_at, verified_by, rejection_note, created_at, updated_at
+        FROM achievement_references
+        WHERE student_id = $1
+          AND status != 'deleted'
+    `
+
+    rows, err := r.db.QueryContext(ctx, query, studentID)
+    if err != nil {
+        return nil, err
+    }
+    defer rows.Close()
+
+    refs := []models.AchievementReference{}
+
+    for rows.Next() {
+        var ref models.AchievementReference
+        if err := rows.Scan(
+            &ref.ID,
+            &ref.StudentID,
+            &ref.MongoAchievementID,
+            &ref.Status,
+            &ref.SubmittedAt,
+            &ref.VerifiedAt,
+            &ref.VerifiedBy,
+            &ref.RejectionNote,
+            &ref.CreatedAt,
+            &ref.UpdatedAt,
+        ); err != nil {
+            return nil, err
+        }
+        refs = append(refs, ref)
+    }
+
+    return refs, nil
+}
+
+func (r *achievementReferenceRepository) FindAll(ctx context.Context) ([]models.AchievementReference, error) {
+    query := `
+        SELECT id, student_id, mongo_achievement_id, status, submitted_at,
+               verified_at, verified_by, rejection_note, created_at, updated_at
+        FROM achievement_references
+        WHERE status != 'deleted'
+    `
+
+    rows, err := r.db.QueryContext(ctx, query)
+    if err != nil {
+        return nil, err
+    }
+    defer rows.Close()
+
+    var refs []models.AchievementReference
+
+    for rows.Next() {
+        var ref models.AchievementReference
+        if err := rows.Scan(
+            &ref.ID,
+            &ref.StudentID,
+            &ref.MongoAchievementID,
+            &ref.Status,
+            &ref.SubmittedAt,
+            &ref.VerifiedAt,
+            &ref.VerifiedBy,
+            &ref.RejectionNote,
+            &ref.CreatedAt,
+            &ref.UpdatedAt,
+        ); err != nil {
+            return nil, err
+        }
+        refs = append(refs, ref)
+    }
+
+    return refs, nil
+}

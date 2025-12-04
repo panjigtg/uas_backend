@@ -36,6 +36,122 @@ func NewAchievementService(
 	}
 }
 
+func (s *AchievementService) List(c *fiber.Ctx) error {
+    role := c.Locals("role_id").(string)
+    userID := c.Locals("user_id").(string)
+
+    var refs []models.AchievementReference
+    var err error
+
+    switch role {
+    case "Mahasiswa":
+        student, _ := s.StudentRepo.GetByUserID(c.Context(), userID)
+        refs, err = s.PgRepo.FindByStudentID(c.Context(), student.ID)
+
+    case "Admin":
+        refs, err = s.PgRepo.FindAll(c.Context())
+    }
+
+    if err != nil {
+        return helper.InternalServerError(c, "Gagal mengambil data prestasi")
+    }
+
+    var list []fiber.Map
+
+    for _, ref := range refs {
+        ach, err := s.MongoRepo.FindByID(c.Context(), ref.MongoAchievementID)
+        if err != nil {
+            continue
+        }
+
+        // ambil eventDate jika ada
+		eventDate := ""
+		if ach.Details != nil && ach.Details["eventDate"] != nil {
+			eventDate = utils.FormatDate(ach.Details["eventDate"])
+		}
+
+
+        // ambil thumbnail → file pertama
+        var thumbnail string
+        if len(ach.Attachments) > 0 {
+            thumbnail = ach.Attachments[0].FileURL
+        }
+
+        list = append(list, fiber.Map{
+            "id":         ach.ID.Hex(),
+            "title":      ach.Title,
+            "type":       ach.AchievementType,
+            "status":     ref.Status,
+            "event_date": eventDate,
+            "thumbnail":  thumbnail,
+            "updated_at": ach.UpdatedAt,
+        })
+    }
+
+    return helper.Success(c, "Daftar prestasi ditemukan", list)
+}
+
+
+func (s *AchievementService) Detail(c *fiber.Ctx) error {
+    mongoID := c.Params("id")
+
+    ref, err := s.PgRepo.GetByMongoID(c.Context(), mongoID)
+    if err != nil || ref == nil {
+        return helper.NotFound(c, "Prestasi tidak ditemukan")
+    }
+
+    ach, err := s.MongoRepo.FindByID(c.Context(), mongoID)
+    if err != nil {
+        return helper.InternalServerError(c, "Gagal mengambil data")
+    }
+
+    details := ach.Details
+    if details == nil {
+        details = map[string]interface{}{}
+    }
+
+    tags := ach.Tags
+    if tags == nil {
+        tags = []string{}
+    }
+
+    eventDate := utils.FormatDate(details["eventDate"])
+
+    location := ""
+    if v, ok := details["location"].(string); ok {
+        location = v
+    }
+
+    organizer := ""
+    if v, ok := details["organizer"].(string); ok {
+        organizer = v
+    }
+
+    delete(details, "eventDate")
+    delete(details, "location")
+    delete(details, "organizer")
+
+    return helper.Success(c, "Detail prestasi ditemukan", fiber.Map{
+        "id":           ach.ID.Hex(),
+        "title":        ach.Title,
+        "type":         ach.AchievementType,
+        "description":  ach.Description,
+        "status":       ref.Status,
+
+        "event_date":   eventDate,
+        "location":     location,
+        "organizer":    organizer,
+
+        "attachments":  ach.Attachments,
+        "tags":         tags,
+        "details":      details,
+
+        "created_at":   ach.CreatedAt,
+        "updated_at":   ach.UpdatedAt,
+    })
+}
+
+
 func (s *AchievementService) Create(c *fiber.Ctx) error {
 	userID, ok := c.Locals("user_id").(string)
 	if !ok || userID == "" {

@@ -51,9 +51,8 @@ type AchievementMongoRepository interface {
 
 type AchievementReferenceRepository interface {
 	Create(ctx context.Context, ref *models.AchievementReference) error
-	// FindByStudent(ctx context.Context, studentID string) ([]models.AchievementReference, error)
-	// FindByStudents(ctx context.Context, studentIDs []string) ([]models.AchievementReference, error)
-	// FindAll(ctx context.Context) ([]models.AchievementReference, error)
+	FindByStudentID(ctx context.Context, studentID string) ([]models.AchievementReference, error)
+	FindAll(ctx context.Context) ([]models.AchievementReference, error)
 	GetByMongoID(ctx context.Context, mongoID string) (*models.AchievementReference, error)
     Update(ctx context.Context, ref *models.AchievementReference) error
 }

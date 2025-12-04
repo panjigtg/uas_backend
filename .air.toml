@@ -1,0 +1,14 @@
+root = "."
+tmp_dir = "tmp"
+
+[build]
+cmd = "go build -o ./tmp/app.exe ./cmd"
+entrypoint = "./tmp/app.exe"   # <- ganti dari bin ke entrypoint
+include_ext = ["go"]
+
+exclude_dir = ["tmp", "logs", "uploads", "database/migrations"]
+
+delay = 1000
+
+[log]
+time = true

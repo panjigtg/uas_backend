@@ -3,6 +3,9 @@ include .env
 DB_URL=postgres://$(DB_USER):$(DB_PASS)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)?sslmode=disable
 MIGRATIONS_PATH=./database/migrations
 
+dev:
+	air
+
 run:
 	go run ./cmd/main.go
 
