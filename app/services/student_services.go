@@ -44,37 +44,14 @@ func (s *StudentService) resolveStudentID(id string) (string, error) {
 }
 
 func (s *StudentService) GetAll(c *fiber.Ctx) error {
-    rows, err := s.DB.Query(`
-        SELECT id, user_id, student_id, program_study, academic_year, advisor_id, created_at
-        FROM students
-        ORDER BY created_at ASC;
-    `)
+    list, err := s.studentRepo.FindAll(c.Context())
     if err != nil {
         return helper.InternalServerError(c, err.Error())
-    }
-    defer rows.Close()
-
-    var list []models.Student
-
-    for rows.Next() {
-        var st models.Student
-        err := rows.Scan(
-            &st.ID,
-            &st.UserID,
-            &st.StudentID,
-            &st.ProgramStudy,
-            &st.AcademicYear,
-            &st.AdvisorID,
-            &st.CreatedAt,
-        )
-        if err != nil {
-            return helper.InternalServerError(c, err.Error())
-        }
-        list = append(list, st)
     }
 
     return helper.Success(c, "Daftar mahasiswa ditemukan", list)
 }
+
 
 func (s *StudentService) GetByID(c *fiber.Ctx) error {
     idParam := c.Params("id")
@@ -84,29 +61,14 @@ func (s *StudentService) GetByID(c *fiber.Ctx) error {
         return helper.NotFound(c, "Mahasiswa tidak ditemukan")
     }
 
-    row := s.DB.QueryRow(`
-        SELECT id, user_id, student_id, program_study, academic_year, advisor_id, created_at
-        FROM students
-        WHERE id = $1
-    `, resolvedID)
-
-    var st models.Student
-    err = row.Scan(
-        &st.ID,
-        &st.UserID,
-        &st.StudentID,
-        &st.ProgramStudy,
-        &st.AcademicYear,
-        &st.AdvisorID,
-        &st.CreatedAt,
-    )
-
-    if err != nil {
+    student, err := s.studentRepo.FindByID(c.Context(), resolvedID)
+    if err != nil || student == nil {
         return helper.NotFound(c, "Mahasiswa tidak ditemukan")
     }
 
-    return helper.Success(c, "Data mahasiswa ditemukan", st)
+    return helper.Success(c, "Data mahasiswa ditemukan", student)
 }
+
 
 func (s *StudentService) UpdateAdvisor(c *fiber.Ctx) error {
     idParam := c.Params("id")
@@ -128,7 +90,7 @@ func (s *StudentService) UpdateAdvisor(c *fiber.Ctx) error {
     }
 
     // cek student ada
-    student, err := s.studentRepo.GetByStudentID(resolvedID)
+    student, err := s.studentRepo.FindByID(c.Context(), resolvedID)
     if err != nil {
         tx.Rollback()
         return helper.NotFound(c, "Mahasiswa tidak ditemukan")

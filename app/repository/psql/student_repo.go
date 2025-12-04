@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"uas/app/models"
 	"uas/app/repository"
+
+	"context"
 )
 
 type StudentRepository struct {
@@ -39,7 +41,7 @@ func (r *StudentRepository) RemoveAdvisor(tx *sql.Tx, lecturerID string) error {
 	return err
 }
 
-func (r *StudentRepository) GetByUserID(userID string) (*models.Student, error) {
+func (r *StudentRepository) GetByUserID(ctx context.Context, userID string) (*models.Student, error) {
 	query := `
 	SELECT id, user_id, student_id, program_study, academic_year, advisor_id, created_at
 	FROM students
@@ -116,4 +118,55 @@ func (r *StudentRepository) GetByStudentID(studentID string) (*models.Student, e
     }
 
     return &s, nil
+}
+
+func (r *StudentRepository) FindAll(ctx context.Context) ([]models.Student, error) {
+    query := `
+        SELECT id, user_id, student_id, program_study, academic_year, advisor_id, created_at
+        FROM students
+        ORDER BY created_at ASC
+    `
+
+    rows, err := r.DB.QueryContext(ctx, query)
+    if err != nil {
+        return nil, err
+    }
+    defer rows.Close()
+
+    var list []models.Student
+    for rows.Next() {
+        var st models.Student
+        if err := rows.Scan(
+            &st.ID, &st.UserID, &st.StudentID,
+            &st.ProgramStudy, &st.AcademicYear,
+            &st.AdvisorID, &st.CreatedAt,
+        ); err != nil {
+            return nil, err
+        }
+        list = append(list, st)
+    }
+
+    return list, nil
+}
+
+func (r *StudentRepository) FindByID(ctx context.Context, id string) (*models.Student, error) {
+    query := `
+        SELECT id, user_id, student_id, program_study, academic_year, advisor_id, created_at
+        FROM students
+        WHERE id = $1
+        LIMIT 1
+    `
+
+    var st models.Student
+    err := r.DB.QueryRowContext(ctx, query, id).Scan(
+        &st.ID, &st.UserID, &st.StudentID,
+        &st.ProgramStudy, &st.AcademicYear,
+        &st.AdvisorID, &st.CreatedAt,
+    )
+
+    if err != nil {
+        return nil, err
+    }
+
+    return &st, nil
 }

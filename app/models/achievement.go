@@ -12,12 +12,20 @@ type AchievementMongo struct {
     AchievementType string         			`bson:"achievementType" json:"achievement_type"` 
     Title           string         			`bson:"title" json:"title"`
     Description     string         			`bson:"description" json:"description"`
-    Details 		AchievementDetails     	`bson:"details" json:"details"`
+    Details         map[string]interface{} `bson:"details" json:"details"`
     Attachments 	[]AchievementFile  		`bson:"attachments" json:"attachments"`
     Tags   			[]string  				`bson:"tags" json:"tags"`
     Points 			int       				`bson:"points" json:"points"`
     CreatedAt 		time.Time            	`bson:"createdAt" json:"created_at"`
     UpdatedAt		time.Time            	`bson:"updatedAt" json:"updated_at"`
+}
+
+type AchievementCreateInput struct {
+    AchievementType string                 `json:"achievement_type"`
+    Title           string                 `json:"title"`
+    Description     string                 `json:"description"`
+    Details         map[string]interface{} `json:"details"`
+    Tags            []string               `json:"tags"`
 }
 
 type AchievementDetails struct {

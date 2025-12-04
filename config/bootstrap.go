@@ -10,12 +10,13 @@ func Bootstrap() *fiber.App {
 	app := InitApp()
 	db := InitDatabase()
 
-	container := BuildContainer(db.Postgres)
+	container := BuildContainer(db.Postgres, db.Mongo)
 
 	routes.RegisterRoutes(app, &routes.RouteContainer{
 		AuthService: container.AuthService,
 		UserService: container.UserService,
 		StudentService: container.StudentService,
+		AchievementService: container.AchievementService,
 	})
 
 	return app
