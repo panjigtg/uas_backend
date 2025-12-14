@@ -15,13 +15,18 @@ type StudentService struct {
     DB           *sql.DB
     studentRepo  repository.StudentRepository
     lecturerRepo repository.LecturerRepository
+    AchRefRepo      repository.AchievementReferenceRepository
+	MongoAchRepo    repository.AchievementMongoRepository
 }
 
-func NewStudentService(db *sql.DB, sRepo repository.StudentRepository, lRepo repository.LecturerRepository) *StudentService {
+func NewStudentService(db *sql.DB, sRepo repository.StudentRepository, lRepo repository.LecturerRepository, achRefRepo repository.AchievementReferenceRepository,
+	mongoRepo repository.AchievementMongoRepository) *StudentService {
     return &StudentService{
         DB:           db,
         studentRepo:  sRepo,
         lecturerRepo: lRepo,
+        AchRefRepo:  achRefRepo,
+		MongoAchRepo: mongoRepo,
     }
 }
 
@@ -126,5 +131,45 @@ func (s *StudentService) UpdateAdvisor(c *fiber.Ctx) error {
 }
 
 func (s *StudentService) GetAchievements(c *fiber.Ctx) error {
-    return helper.Success(c, "Endpoint achievements mahasiswa belum diimplementasikan", nil)
+	idParam := c.Params("id")
+
+	resolvedID, err := s.resolveStudentID(idParam)
+	if err != nil {
+		return helper.NotFound(c, "Mahasiswa tidak ditemukan")
+	}
+
+	student, err := s.studentRepo.FindByID(c.Context(), resolvedID)
+	if err != nil || student == nil {
+		return helper.NotFound(c, "Mahasiswa tidak ditemukan")
+	}
+
+	refs, err := s.AchRefRepo.FindByStudentID(c.Context(), resolvedID)
+	if err != nil {
+		return helper.InternalServerError(c, "Gagal mengambil prestasi")
+	}
+
+	if len(refs) == 0 {
+		return helper.Success(c, "Belum ada prestasi", []fiber.Map{})
+	}
+
+	result := []fiber.Map{}
+
+	for _, ref := range refs {
+		ach, err := s.MongoAchRepo.FindByID(c.Context(), ref.MongoAchievementID)
+		if err != nil || ach == nil {
+			continue
+		}
+
+		result = append(result, fiber.Map{
+			"id":      ach.ID.Hex(),
+			"title":   ach.Title,
+			"type":    ach.AchievementType,
+			"status":  ref.Status,
+			"updated": ach.UpdatedAt,
+		})
+	}
+
+	return helper.Success(c, "Daftar prestasi mahasiswa ditemukan", result)
 }
+
+

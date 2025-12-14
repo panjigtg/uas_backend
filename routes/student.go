@@ -7,14 +7,14 @@ import (
     "github.com/gofiber/fiber/v2"
 )
 
-func StudentRoutes(r fiber.Router, svc *services.StudentService) {
+func StudentRoutes(r fiber.Router, studentServices *services.StudentService) {
 	students := r.Group("/students")
 
 	students.Use(middleware.AuthRequired())
 	students.Use(middleware.RequirePermission("user:manage"))
 
-    students.Get("/", svc.GetAll)
-    students.Get("/:id", svc.GetByID)
-    students.Put("/:id/advisor", svc.UpdateAdvisor)
-    students.Get("/:id/achievements", svc.GetAchievements)
+    students.Get("/", studentServices.GetAll)
+    students.Get("/:id", studentServices.GetByID)
+    students.Put("/:id/advisor", studentServices.UpdateAdvisor)
+    students.Get("/:id/achievements", studentServices.GetAchievements)
 }

@@ -1,22 +1,33 @@
-package psql
+package repository
 
 import (
 	"database/sql"
 	"uas/app/models"
-	"uas/app/repository"
 
 	"context"
 )
 
-type StudentRepository struct {
+type StudentRepository interface {
+    Create(tx *sql.Tx, userID string, studentID string) error
+    DeleteByUserID(tx *sql.Tx, userID string) error
+    RemoveAdvisor(tx *sql.Tx, lecturerID string) error
+    GetByUserID(ctx context.Context, userID string) (*models.Student, error)
+	UpdateAdvisor(tx *sql.Tx, studentID string, advisorID *string) error
+	GetIDByIndex(idx int) (string, error)
+	FindAll(ctx context.Context) ([]models.Student, error)
+    FindByID(ctx context.Context, id string) (*models.Student, error)
+	FindByAdvisorID(ctx context.Context, advisorID string) ([]models.Student, error)
+}
+
+type studentRepository struct {
 	DB *sql.DB
 }
 
-func NewStudentRepo(db *sql.DB) repository.StudentRepository {
-	return &StudentRepository{DB: db}
+func NewStudentRepo(db *sql.DB) StudentRepository {
+	return &studentRepository{DB: db}
 }
 
-func (r *StudentRepository) Create(tx *sql.Tx, userID string, studentID string) error {
+func (r *studentRepository) Create(tx *sql.Tx, userID string, studentID string) error {
 	query := `
 	INSERT INTO students (user_id, student_id)
 	VALUES ($1, $2);
@@ -26,13 +37,13 @@ func (r *StudentRepository) Create(tx *sql.Tx, userID string, studentID string) 
 	return err
 }
 
-func (r *StudentRepository) DeleteByUserID(tx *sql.Tx, userID string) error {
+func (r *studentRepository) DeleteByUserID(tx *sql.Tx, userID string) error {
 	_, err := tx.Exec(`DELETE FROM students WHERE user_id=$1`, userID)
 	return err
 }
 
 
-func (r *StudentRepository) RemoveAdvisor(tx *sql.Tx, lecturerID string) error {
+func (r *studentRepository) RemoveAdvisor(tx *sql.Tx, lecturerID string) error {
 	_, err := tx.Exec(`
 		UPDATE students
 		SET advisor_id = NULL
@@ -41,7 +52,7 @@ func (r *StudentRepository) RemoveAdvisor(tx *sql.Tx, lecturerID string) error {
 	return err
 }
 
-func (r *StudentRepository) GetByUserID(ctx context.Context, userID string) (*models.Student, error) {
+func (r *studentRepository) GetByUserID(ctx context.Context, userID string) (*models.Student, error) {
 	query := `
 	SELECT id, user_id, student_id, program_study, academic_year, advisor_id, created_at
 	FROM students
@@ -67,7 +78,7 @@ func (r *StudentRepository) GetByUserID(ctx context.Context, userID string) (*mo
 	return &s, nil
 }
 
-func (r *StudentRepository) UpdateAdvisor(tx *sql.Tx, studentID string, advisorID *string) error {
+func (r *studentRepository) UpdateAdvisor(tx *sql.Tx, studentID string, advisorID *string) error {
     query := `
         UPDATE students
         SET advisor_id = $1
@@ -77,7 +88,7 @@ func (r *StudentRepository) UpdateAdvisor(tx *sql.Tx, studentID string, advisorI
     return err
 }
 
-func (r *StudentRepository) GetIDByIndex(idx int) (string, error) {
+func (r *studentRepository) GetIDByIndex(idx int) (string, error) {
     query := `
         SELECT id
         FROM students
@@ -94,7 +105,7 @@ func (r *StudentRepository) GetIDByIndex(idx int) (string, error) {
     return id, nil
 }
 
-func (r *StudentRepository) GetByStudentID(studentID string) (*models.Student, error) {
+func (r *studentRepository) GetByStudentID(studentID string) (*models.Student, error) {
     query := `
         SELECT id, user_id, student_id, program_study, academic_year, advisor_id, created_at
         FROM students
@@ -120,7 +131,7 @@ func (r *StudentRepository) GetByStudentID(studentID string) (*models.Student, e
     return &s, nil
 }
 
-func (r *StudentRepository) FindAll(ctx context.Context) ([]models.Student, error) {
+func (r *studentRepository) FindAll(ctx context.Context) ([]models.Student, error) {
     query := `
         SELECT id, user_id, student_id, program_study, academic_year, advisor_id, created_at
         FROM students
@@ -149,7 +160,7 @@ func (r *StudentRepository) FindAll(ctx context.Context) ([]models.Student, erro
     return list, nil
 }
 
-func (r *StudentRepository) FindByID(ctx context.Context, id string) (*models.Student, error) {
+func (r *studentRepository) FindByID(ctx context.Context, id string) (*models.Student, error) {
     query := `
         SELECT id, user_id, student_id, program_study, academic_year, advisor_id, created_at
         FROM students
@@ -169,4 +180,34 @@ func (r *StudentRepository) FindByID(ctx context.Context, id string) (*models.St
     }
 
     return &st, nil
+}
+
+func (r *studentRepository) FindByAdvisorID(ctx context.Context, advisorID string) ([]models.Student, error) {
+    query := `
+        SELECT id, user_id, student_id, program_study, academic_year, advisor_id, created_at
+        FROM students
+        WHERE advisor_id = $1
+    `
+
+    rows, err := r.DB.QueryContext(ctx, query, advisorID)
+    if err != nil {
+        return nil, err
+    }
+    defer rows.Close()
+
+    var list []models.Student
+
+    for rows.Next() {
+        var s models.Student
+        if err := rows.Scan(
+            &s.ID, &s.UserID, &s.StudentID,
+            &s.ProgramStudy, &s.AcademicYear,
+            &s.AdvisorID, &s.CreatedAt,
+        ); err != nil {
+            return nil, err
+        }
+        list = append(list, s)
+    }
+
+    return list, nil
 }

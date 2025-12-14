@@ -3,7 +3,7 @@ tmp_dir = "tmp"
 
 [build]
 cmd = "go build -o ./tmp/app.exe ./cmd"
-entrypoint = "./tmp/app.exe"   # <- ganti dari bin ke entrypoint
+entrypoint = "./tmp/app.exe"
 include_ext = ["go"]
 
 exclude_dir = ["tmp", "logs", "uploads", "database/migrations"]

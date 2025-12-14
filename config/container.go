@@ -1,11 +1,10 @@
 package config
 
 import (
+	repo "uas/app/repository"
 	"database/sql"
 	mgodriver "go.mongodb.org/mongo-driver/mongo"
 
-	"uas/app/repository/psql"
-	mongorepo "uas/app/repository/mongo"
 	"uas/app/services"
 )
 
@@ -21,25 +20,34 @@ type Container struct {
 func BuildContainer(db *sql.DB, mongoDB *mgodriver.Database) *Container {
 
 	// REPOSITORIES
-	authRepo := psql.NewAuthRepo(db)
-	userRepo := psql.NewUserRepo(db)
-	studentRepo := psql.NewStudentRepo(db)
-    lecturerRepo := psql.NewLecturerRepo(db)
-	achievementRefRepo := psql.NewAchievementReferenceRepository(db)
+	authRepo := repo.NewAuthRepo(db)
+	userRepo := repo.NewUserRepo(db)
+	studentRepo := repo.NewStudentRepo(db)
+    lecturerRepo := repo.NewLecturerRepo(db)
+	achievementRefRepo := repo.NewAchievementReferenceRepository(db)
 
 
-	achievementMongoRepo := mongorepo.NewAchievementMongoRepository(
+	achievementMongoRepo := repo.NewAchievementMongoRepository(
 		mongoDB.Collection("achievements"),
 	)
 
 	// SERVICES
 	authService := services.NewAuthService(authRepo)
     userService := services.NewUserService(db, userRepo, studentRepo, lecturerRepo)
-	studentService := services.NewStudentService(db, studentRepo, lecturerRepo)
+	studentService := services.NewStudentService(
+		db,
+		studentRepo,
+		lecturerRepo,
+		achievementRefRepo,
+		achievementMongoRepo,
+	)
+
 	achievementService := services.NewAchievementService(
 		studentRepo,
 		achievementMongoRepo,
 		achievementRefRepo,
+		lecturerRepo,
+		userRepo,
 	)
 
 

@@ -1,20 +1,27 @@
-package psql
+package repository
 
 import (
-	"uas/app/repository"
 	"database/sql"
 	"uas/app/models"
 )
 
-type AuthRepository struct {
+type AuthRepository interface {
+	Register(user *models.Users) error
+	GetUserByEmail(email string) (*models.UserWithRole, error)
+	GetUserByID(userID string) (*models.UserWithRole, error)
+	GetPermissionsByUserID(userID string) ([]string, error)
+	GetRoleIDByName(name string) (string, error) 
+}
+
+type authRepository struct {
 	DB *sql.DB
 }
 
-func NewAuthRepo(db *sql.DB) repository.AuthRepository {
-	return &AuthRepository{DB: db}
+func NewAuthRepo(db *sql.DB) AuthRepository {
+	return &authRepository{DB: db}
 }
 
-func (r *AuthRepository) Register(user *models.Users) error {
+func (r *authRepository) Register(user *models.Users) error {
 	query := `
 	INSERT INTO users (username, email, password_hash, full_name, role_id)
 	VALUES ($1, $2, $3, $4, $5)
@@ -31,7 +38,7 @@ func (r *AuthRepository) Register(user *models.Users) error {
 	return err
 }
 
-func (r *AuthRepository) GetUserByEmail(email string) (*models.UserWithRole, error) {
+func (r *authRepository) GetUserByEmail(email string) (*models.UserWithRole, error) {
 	query := `
 	SELECT 
 		u.id,
@@ -61,7 +68,7 @@ func (r *AuthRepository) GetUserByEmail(email string) (*models.UserWithRole, err
 }
 
 
-func (r *AuthRepository) GetUserByID(userID string) (*models.UserWithRole, error) {
+func (r *authRepository) GetUserByID(userID string) (*models.UserWithRole, error) {
 	query := `
 	SELECT 
 		u.id,
@@ -91,7 +98,7 @@ func (r *AuthRepository) GetUserByID(userID string) (*models.UserWithRole, error
 }
 
 
-func (r *AuthRepository) GetPermissionsByUserID(userID string) ([]string, error) {
+func (r *authRepository) GetPermissionsByUserID(userID string) ([]string, error) {
 	query := `
 	SELECT p.name
 	FROM permissions p
@@ -116,7 +123,7 @@ func (r *AuthRepository) GetPermissionsByUserID(userID string) ([]string, error)
 	return perms, nil
 }
 
-func (r *AuthRepository) GetRoleIDByName(name string) (string, error) {
+func (r *authRepository) GetRoleIDByName(name string) (string, error) {
 	var roleID string
 	query := `SELECT id FROM roles WHERE name = $1`
 	err := r.DB.QueryRow(query, name).Scan(&roleID)

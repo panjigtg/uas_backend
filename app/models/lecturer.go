@@ -9,3 +9,8 @@ type Lecturer struct {
     Department *string    `db:"department" json:"department"`      
     CreatedAt  time.Time `db:"created_at" json:"created_at"`
 }
+
+type LecturerReq struct {
+    ID     string `db:"id"`
+    UserID string `db:"user_id"`
+}

@@ -16,5 +16,9 @@ func AchievementRoutes(r fiber.Router, achievementService *services.AchievementS
 	achievement.Post("/", middleware.RequirePermission("achievement:create"), achievementService.Create)
 	achievement.Post("/:id/submit", middleware.RequirePermission("achievement:update"), achievementService.Submit)
 	achievement.Delete("/:id", middleware.RequirePermission("achievement:update"), achievementService.Delete)
+	achievement.Post("/:id/verify", middleware.RequirePermission("achievement:verify"), achievementService.Verify,)
+	achievement.Post("/:id/reject", middleware.RequirePermission("achievement:verify"), achievementService.Reject,)
+	achievement.Post("/:id/attachments", middleware.RequirePermission("achievement:update"), achievementService.UploadAttachments)
+	achievement.Get("/:id/history", middleware.RequirePermission("achievement:read"), achievementService.History)
 
 }

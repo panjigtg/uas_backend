@@ -1,21 +1,30 @@
-package psql
+package repository
 
 import (
-	"uas/app/repository"
 	"database/sql"
 	"uas/app/models"
 )
 
-type UserRepository struct {
+type UserRepository interface {
+	GetAll() ([]models.UserWithRole, error)
+	GetByID(id string) (*models.UserWithRole, error)
+	Create(tx *sql.Tx, user *models.Users) (string, error)
+    Update(tx *sql.Tx, userID string, req models.UserUpdateRequest) error
+    UpdateRole(tx *sql.Tx, userID string, roleID string) error
+	Delete(tx *sql.Tx, id string) error
+	GetIDByIndex(idx int) (string, error)
+}
+
+type userRepository struct {
 	DB *sql.DB
 }
 
-func NewUserRepo(db *sql.DB) repository.UserRepository {
-	return &UserRepository{DB: db}
+func NewUserRepo(db *sql.DB) UserRepository {
+	return &userRepository{DB: db}
 }
 
 
-func (r *UserRepository) GetAll() ([]models.UserWithRole, error) {
+func (r *userRepository) GetAll() ([]models.UserWithRole, error) {
 	query := `
 	SELECT 
 		u.id, u.username, u.email, u.full_name,
@@ -52,7 +61,7 @@ func (r *UserRepository) GetAll() ([]models.UserWithRole, error) {
 	return users, nil
 }
 
-func (r *UserRepository) GetByID(id string) (*models.UserWithRole, error) {
+func (r *userRepository) GetByID(id string) (*models.UserWithRole, error) {
 	query := `
 	SELECT 
 		u.id, u.username, u.email, u.full_name,
@@ -81,7 +90,7 @@ func (r *UserRepository) GetByID(id string) (*models.UserWithRole, error) {
 }
 
 
-func (r *UserRepository) Update(tx *sql.Tx, userID string, req models.UserUpdateRequest) error {
+func (r *userRepository) Update(tx *sql.Tx, userID string, req models.UserUpdateRequest) error {
 	query := `
 	UPDATE users 
 	SET username=$1, email=$2, full_name=$3, updated_at=NOW()
@@ -99,7 +108,7 @@ func (r *UserRepository) Update(tx *sql.Tx, userID string, req models.UserUpdate
 }
 
 
-func (r *UserRepository) Create(tx *sql.Tx, user *models.Users) (string, error) {
+func (r *userRepository) Create(tx *sql.Tx, user *models.Users) (string, error) {
 	query := `
 	INSERT INTO users (username, email, password_hash, full_name, role_id)
 	VALUES ($1, $2, $3, $4, $5)
@@ -119,19 +128,19 @@ func (r *UserRepository) Create(tx *sql.Tx, user *models.Users) (string, error) 
 }
 
 
-func (r *UserRepository) Delete(tx *sql.Tx, id string) error {
+func (r *userRepository) Delete(tx *sql.Tx, id string) error {
 	_, err := tx.Exec(`DELETE FROM users WHERE id=$1`, id)
 	return err
 }
 
-func (r *UserRepository) UpdateRole(tx *sql.Tx, userID string, roleID string) error {
+func (r *userRepository) UpdateRole(tx *sql.Tx, userID string, roleID string) error {
 	_, err := tx.Exec(`
 		UPDATE users SET role_id=$1, updated_at=NOW() WHERE id=$2
 	`, roleID, userID)
 	return err
 }
 
-func (r *UserRepository) GetIDByIndex(idx int) (string, error) {
+func (r *userRepository) GetIDByIndex(idx int) (string, error) {
     query := `
         SELECT id
         FROM users

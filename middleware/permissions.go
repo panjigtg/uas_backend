@@ -38,6 +38,11 @@ func AuthRequired() fiber.Handler {
 	
 func RequirePermission(permission string) fiber.Handler {
 	return func(c *fiber.Ctx) error {
+		roleAny := c.Locals("role_id")
+		role, ok := roleAny.(string)
+		if ok && role == "Admin" {
+			return c.Next()
+		}
 		permsAny := c.Locals("permissions")
 		if permsAny == nil {
             return helper.Forbidden(c, "Permissions tidak ditemukan")

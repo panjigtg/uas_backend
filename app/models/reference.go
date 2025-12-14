@@ -13,4 +13,6 @@ type AchievementReference struct {
     RejectionNote      *string   `db:"rejection_note" json:"rejection_note"`
     CreatedAt          time.Time `db:"created_at" json:"created_at"`
     UpdatedAt          time.Time `db:"updated_at" json:"updated_at"`
+    StudentCode string `db:"student_code" json:"student_code"`
+    StudentName string `db:"student_name" json:"student_name"`
 }
