@@ -1,0 +1,442 @@
+{"level":"info","app":"uas-prestasi","method":"GET","path":"/","status":200,"response":{"status":"success","message":"API aktif"},"time":"2025-11-27T19:30:57+07:00"}
+{"level":"info","app":"uas-prestasi","method":"GET","path":"/","status":200,"response":{"status":"success","message":"API aktif"},"time":"2025-11-27T19:31:55+07:00"}
+{"level":"info","app":"uas-prestasi","method":"GET","path":"/","status":200,"response":{"status":"success","message":"API aktif"},"time":"2025-11-27T19:31:55+07:00"}
+{"level":"info","app":"uas-prestasi","method":"GET","path":"/","status":200,"response":{"status":"success","message":"API aktif"},"time":"2025-11-27T19:31:55+07:00"}
+{"level":"info","app":"uas-prestasi","method":"GET","path":"/","status":200,"response":{"status":"success","message":"API aktif"},"time":"2025-11-27T19:31:55+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/register","status":201,"response":{"status":"success","message":"Registrasi berhasil"},"time":"2025-11-28T20:15:34+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/login","status":400,"response":{"status":"error","message":"Format request tidak valid","errors":"invalid character '}' looking for beginning of object key string"},"time":"2025-11-28T20:16:20+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/login","status":200,"response":{"status":"success","message":"Login berhasil","data":{"user":{"id":"8ab7736b-dfc1-45de-a171-16236a68c342","username":"panji","email":"panji@email.com","full_name":"Panji Bachtiar","role":"Mahasiswa","permissions":null},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOGFiNzczNmItZGZjMS00NWRlLWExNzEtMTYyMzZhNjhjMzQyIiwicm9sZV9pZCI6Ik1haGFzaXN3YSIsInBlcm1pc3Npb25zIjpudWxsLCJleHAiOjE3NjQzMzU3ODYsImlhdCI6MTc2NDMzNTc4Nn0.26cRRZ9Ey04LRLJCrlLQX9pqeySll-VAwNH1FR32kQA","refresh_token":""}},"time":"2025-11-28T20:16:26+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/login","status":200,"response":{"status":"success","message":"Login berhasil","data":{"user":{"id":"8ab7736b-dfc1-45de-a171-16236a68c342","username":"panji","email":"panji@email.com","full_name":"Panji Bachtiar","role":"Mahasiswa","permissions":["achievement:create","achievement:read","achievement:update"]},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOGFiNzczNmItZGZjMS00NWRlLWExNzEtMTYyMzZhNjhjMzQyIiwicm9sZV9pZCI6Ik1haGFzaXN3YSIsInBlcm1pc3Npb25zIjpbImFjaGlldmVtZW50OmNyZWF0ZSIsImFjaGlldmVtZW50OnJlYWQiLCJhY2hpZXZlbWVudDp1cGRhdGUiXSwiZXhwIjoxNzY0MzM2MzY4LCJpYXQiOjE3NjQzMzYzNjh9.bcjRuynC_OK_eIpmlqh-6BBlU9flU0DU3EHBR001hjU","refresh_token":""}},"time":"2025-11-28T20:26:08+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/login","status":200,"response":{"status":"success","message":"Login berhasil","data":{"user":{"id":"8ab7736b-dfc1-45de-a171-16236a68c342","username":"panji","email":"panji@email.com","full_name":"Panji Bachtiar","role":"Mahasiswa","permissions":["achievement:create","achievement:read","achievement:update"]},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOGFiNzczNmItZGZjMS00NWRlLWExNzEtMTYyMzZhNjhjMzQyIiwicm9sZV9pZCI6Ik1haGFzaXN3YSIsInBlcm1pc3Npb25zIjpbImFjaGlldmVtZW50OmNyZWF0ZSIsImFjaGlldmVtZW50OnJlYWQiLCJhY2hpZXZlbWVudDp1cGRhdGUiXSwiZXhwIjoxNzY0MzQwMDM5LCJpYXQiOjE3NjQzNDAwMzl9.ItDVbsqF5aD04c1tcOZ81DIiq1wiUkgp948AtOuQ-4k","refresh_token":""}},"time":"2025-11-28T21:27:19+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/login","status":401,"response":{"status":"error","message":"Password salah"},"time":"2025-11-28T21:27:56+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/login","status":200,"response":{"status":"success","message":"Login berhasil","data":{"user":{"id":"8ab7736b-dfc1-45de-a171-16236a68c342","username":"panji","email":"panji@email.com","full_name":"Panji Bachtiar","role":"Mahasiswa","permissions":["achievement:create","achievement:read","achievement:update"]},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOGFiNzczNmItZGZjMS00NWRlLWExNzEtMTYyMzZhNjhjMzQyIiwicm9sZV9pZCI6Ik1haGFzaXN3YSIsInBlcm1pc3Npb25zIjpbImFjaGlldmVtZW50OmNyZWF0ZSIsImFjaGlldmVtZW50OnJlYWQiLCJhY2hpZXZlbWVudDp1cGRhdGUiXSwiZXhwIjoxNzY0MzQwMTc5LCJpYXQiOjE3NjQzNDAxNzl9.iy3VXEbnV9bK5w2ZlLPpVBRw4_toVkHDor3PofPZMk0","refresh_token":""}},"time":"2025-11-28T21:29:39+07:00"}
+{"level":"error","app":"uas_be","method":"POST","path":"/api/v1/profile","status":500,"response":{"status":"error","message":"Cannot POST /api/v1/profile"},"time":"2025-11-28T21:29:55+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/login","status":200,"response":{"status":"success","message":"Login berhasil","data":{"user":{"id":"8ab7736b-dfc1-45de-a171-16236a68c342","username":"panji","email":"panji@email.com","full_name":"Panji Bachtiar","role":"Mahasiswa","permissions":["achievement:create","achievement:read","achievement:update"]},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOGFiNzczNmItZGZjMS00NWRlLWExNzEtMTYyMzZhNjhjMzQyIiwicm9sZV9pZCI6Ik1haGFzaXN3YSIsInBlcm1pc3Npb25zIjpbImFjaGlldmVtZW50OmNyZWF0ZSIsImFjaGlldmVtZW50OnJlYWQiLCJhY2hpZXZlbWVudDp1cGRhdGUiXSwiZXhwIjoxNzY0MzQwMjg0LCJpYXQiOjE3NjQzNDAyODR9.yNTS3Dm7DFl2Bvtub3l2WVegOE7n5oDalvGeuCVAmZY","refresh_token":""}},"time":"2025-11-28T21:31:24+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/login","status":401,"response":{"status":"error","message":"Password salah"},"time":"2025-11-28T21:32:32+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/refresh","status":401,"response":{"status":"error","message":"Refresh token tidak valid"},"time":"2025-11-29T00:18:10+07:00"}
+{"level":"error","app":"uas_be","method":"POST","path":"/api/v1/login","status":500,"response":{"status":"error","message":"Cannot POST /api/v1/login"},"time":"2025-11-29T00:23:01+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"response":{"status":"success","message":"Login berhasil","data":{"user":{"id":"8ab7736b-dfc1-45de-a171-16236a68c342","username":"panji","email":"panji@email.com","full_name":"Panji Bachtiar","role":"Mahasiswa","permissions":["achievement:create","achievement:read","achievement:update"]},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOGFiNzczNmItZGZjMS00NWRlLWExNzEtMTYyMzZhNjhjMzQyIiwicm9sZV9pZCI6Ik1haGFzaXN3YSIsInBlcm1pc3Npb25zIjpbImFjaGlldmVtZW50OmNyZWF0ZSIsImFjaGlldmVtZW50OnJlYWQiLCJhY2hpZXZlbWVudDp1cGRhdGUiXSwiZXhwIjoxNzY0MzU0MTkxLCJpYXQiOjE3NjQzNTA1OTF9.EokEisTy5ZwsfNsESknpl_e5j1bRM3z6DOeY3DCC_2s","refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4YWI3NzM2Yi1kZmMxLTQ1ZGUtYTE3MS0xNjIzNmE2OGMzNDIiLCJleHAiOjE3NjQ0MzY5OTEsImlhdCI6MTc2NDM1MDU5MX0.g4I_u2_L8PvSz0i_vq9eS9xkwdfHvHt1-1FT9eLlJi4"}},"time":"2025-11-29T00:23:11+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/refresh","status":500,"response":{"status":"error","message":"Cannot GET /api/v1/refresh"},"time":"2025-11-29T00:23:37+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/auth/refresh","status":200,"response":{"status":"success","message":"Token diperbarui","data":{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOGFiNzczNmItZGZjMS00NWRlLWExNzEtMTYyMzZhNjhjMzQyIiwicm9sZV9pZCI6IjJjMzVkMzI2LWE3NDQtNGJkZC04YTUzLWY3OGJiZDJjNThkMyIsInBlcm1pc3Npb25zIjpbImFjaGlldmVtZW50OmNyZWF0ZSIsImFjaGlldmVtZW50OnJlYWQiLCJhY2hpZXZlbWVudDp1cGRhdGUiXSwiZXhwIjoxNzY0MzU0MjI1LCJpYXQiOjE3NjQzNTA2MjV9.aiST4Ub7NQVU0OsfkqhCdm0oWNPcS0RyO-VXjBGwv9E"}},"time":"2025-11-29T00:23:45+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/auth/refresh","status":200,"response":{"status":"success","message":"Token diperbarui","data":{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOGFiNzczNmItZGZjMS00NWRlLWExNzEtMTYyMzZhNjhjMzQyIiwicm9sZV9pZCI6IjJjMzVkMzI2LWE3NDQtNGJkZC04YTUzLWY3OGJiZDJjNThkMyIsInBlcm1pc3Npb25zIjpbImFjaGlldmVtZW50OmNyZWF0ZSIsImFjaGlldmVtZW50OnJlYWQiLCJhY2hpZXZlbWVudDp1cGRhdGUiXSwiZXhwIjoxNzY0MzU0OTEyLCJpYXQiOjE3NjQzNTEzMTJ9.9sJZq5N35xWBgVsN9-Cuc2H3rDGwhbDy62SAnHgSMh8"}},"time":"2025-11-29T00:35:12+07:00"}
+{"level":"error","app":"uas_be","method":"POST","path":"/api/v1/auth/refresh","status":500,"response":{"status":"error","message":"Method Not Allowed"},"time":"2025-11-29T01:09:21+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/refresh","status":200,"response":{"status":"success","message":"Token diperbarui","data":{"refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOGFiNzczNmItZGZjMS00NWRlLWExNzEtMTYyMzZhNjhjMzQyIiwicm9sZV9pZCI6IjJjMzVkMzI2LWE3NDQtNGJkZC04YTUzLWY3OGJiZDJjNThkMyIsInBlcm1pc3Npb25zIjpbImFjaGlldmVtZW50OmNyZWF0ZSIsImFjaGlldmVtZW50OnJlYWQiLCJhY2hpZXZlbWVudDp1cGRhdGUiXSwiZXhwIjoxNzY0MzU2OTc0LCJpYXQiOjE3NjQzNTMzNzR9.No5VeMIb_Hgc2bYuuZL-HCL0nLjngbkiV2-fh58wd3c"}},"time":"2025-11-29T01:09:34+07:00"}
+{"level":"error","app":"uas_be","method":"POST","path":"/api/v1/auth/logout","status":500,"response":{"status":"error","message":"Cannot POST /api/v1/auth/logout"},"time":"2025-11-29T01:09:45+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/logout","status":200,"response":{"status":"success","message":"Logout berhasil"},"time":"2025-11-29T01:10:09+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/refresh","status":200,"response":{"status":"success","message":"Token diperbarui","data":{"refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOGFiNzczNmItZGZjMS00NWRlLWExNzEtMTYyMzZhNjhjMzQyIiwicm9sZV9pZCI6IjJjMzVkMzI2LWE3NDQtNGJkZC04YTUzLWY3OGJiZDJjNThkMyIsInBlcm1pc3Npb25zIjpbImFjaGlldmVtZW50OmNyZWF0ZSIsImFjaGlldmVtZW50OnJlYWQiLCJhY2hpZXZlbWVudDp1cGRhdGUiXSwiZXhwIjoxNzY0MzU3MDE5LCJpYXQiOjE3NjQzNTM0MTl9.HOPebC_hU66srhoJ3QtzzbpU858bZH5vZw1_NM-Nhgw"}},"time":"2025-11-29T01:10:19+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/refresh","status":200,"response":{"status":"success","message":"Token diperbarui","data":{"refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOGFiNzczNmItZGZjMS00NWRlLWExNzEtMTYyMzZhNjhjMzQyIiwicm9sZV9pZCI6IjJjMzVkMzI2LWE3NDQtNGJkZC04YTUzLWY3OGJiZDJjNThkMyIsInBlcm1pc3Npb25zIjpbImFjaGlldmVtZW50OmNyZWF0ZSIsImFjaGlldmVtZW50OnJlYWQiLCJhY2hpZXZlbWVudDp1cGRhdGUiXSwiZXhwIjoxNzY0MzU3NzA2LCJpYXQiOjE3NjQzNTQxMDZ9.NjhqpUnSQP1-tP1kcOg8PLA_-gyMtup2jRrmfhlzQVQ"}},"time":"2025-11-29T01:21:46+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/logout","status":200,"response":{"status":"success","message":"Logout berhasil"},"time":"2025-11-29T01:21:53+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/auth/refresh","status":401,"response":{"status":"error","message":"Refresh token sudah logout"},"time":"2025-11-29T01:21:56+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/auth/refresh","status":401,"response":{"status":"error","message":"Refresh token sudah logout"},"time":"2025-11-29T01:22:13+07:00"}
+{"level":"error","app":"uas_be","method":"POST","path":"/api/v1/auth/profile","status":500,"response":{"status":"error","message":"Method Not Allowed"},"time":"2025-11-29T01:41:04+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":401,"response":{"status":"error","message":"Token tidak valid atau expired"},"time":"2025-11-29T01:41:32+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"response":{"status":"success","message":"Login berhasil","data":{"user":{"id":"8ab7736b-dfc1-45de-a171-16236a68c342","username":"panji","email":"panji@email.com","full_name":"Panji Bachtiar","role":"Mahasiswa","permissions":["achievement:create","achievement:read","achievement:update"]},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOGFiNzczNmItZGZjMS00NWRlLWExNzEtMTYyMzZhNjhjMzQyIiwicm9sZV9pZCI6Ik1haGFzaXN3YSIsInBlcm1pc3Npb25zIjpbImFjaGlldmVtZW50OmNyZWF0ZSIsImFjaGlldmVtZW50OnJlYWQiLCJhY2hpZXZlbWVudDp1cGRhdGUiXSwiZXhwIjoxNzY0MzU4OTAyLCJpYXQiOjE3NjQzNTUzMDJ9.t-Vdu5PwOWHlOQipqhgGkB7toK6WLBusRSyAanCFFjY","refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4YWI3NzM2Yi1kZmMxLTQ1ZGUtYTE3MS0xNjIzNmE2OGMzNDIiLCJleHAiOjE3NjQ0NDE3MDIsImlhdCI6MTc2NDM1NTMwMn0.SWPGIJWOGw06GL02b8sGdvYQ2gOxknfho-S6T1hjp7Q"}},"time":"2025-11-29T01:41:42+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":200,"response":{"status":"success","message":"Profil berhasil diambil","data":{"id":"8ab7736b-dfc1-45de-a171-16236a68c342","username":"panji","email":"panji@email.com","full_name":"Panji Bachtiar","role":"Mahasiswa","permissions":["achievement:create","achievement:read","achievement:update"]}},"time":"2025-11-29T01:41:55+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":401,"response":{"status":"error","message":"Token tidak valid atau expired"},"time":"2025-11-29T01:42:18+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":200,"response":{"status":"success","message":"Profil berhasil diambil","data":{"id":"8ab7736b-dfc1-45de-a171-16236a68c342","username":"panji","email":"panji@email.com","full_name":"Panji Bachtiar","role":"Mahasiswa","permissions":["achievement:create","achievement:read","achievement:update"]}},"time":"2025-11-29T01:42:22+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":200,"response":{"status":"success","message":"Profil berhasil diambil","data":{"id":"8ab7736b-dfc1-45de-a171-16236a68c342","username":"panji","email":"panji@email.com","full_name":"Panji Bachtiar","role":"Mahasiswa","permissions":["achievement:create","achievement:read","achievement:update"]}},"time":"2025-11-29T01:43:49+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":200,"response":{"status":"success","message":"Profil berhasil diambil","data":{"id":"8ab7736b-dfc1-45de-a171-16236a68c342","username":"panji","email":"panji@email.com","full_name":"Panji Bachtiar","role":"Mahasiswa","permissions":["achievement:create","achievement:read","achievement:update"]}},"time":"2025-11-29T01:43:51+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/logout","status":200,"response":{"status":"success","message":"Logout berhasil"},"time":"2025-11-29T01:43:56+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":200,"response":{"status":"success","message":"Profil berhasil diambil","data":{"id":"8ab7736b-dfc1-45de-a171-16236a68c342","username":"panji","email":"panji@email.com","full_name":"Panji Bachtiar","role":"Mahasiswa","permissions":["achievement:create","achievement:read","achievement:update"]}},"time":"2025-11-29T01:43:59+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":200,"response":{"status":"success","message":"Profil berhasil diambil","data":{"id":"8ab7736b-dfc1-45de-a171-16236a68c342","username":"panji","email":"panji@email.com","full_name":"Panji Bachtiar","role":"Mahasiswa","permissions":["achievement:create","achievement:read","achievement:update"]}},"time":"2025-11-29T01:44:02+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/logout","status":200,"response":{"status":"success","message":"Logout berhasil"},"time":"2025-11-29T01:44:12+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":401,"response":{"status":"error","message":"Token sudah tidak berlaku"},"time":"2025-11-29T01:44:14+07:00"}
+{"level":"error","app":"uas_be","method":"POST","path":"/api/v1/register","status":500,"response":{"status":"error","message":"Cannot POST /api/v1/register"},"time":"2025-11-29T23:38:05+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/register","status":201,"response":{"status":"success","message":"Registrasi berhasil"},"time":"2025-11-29T23:38:18+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/logout","status":200,"response":{"status":"success","message":"Logout berhasil"},"time":"2025-11-29T23:38:35+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"response":{"status":"success","message":"Login berhasil","data":{"user":{"id":"976b88a1-d630-439b-8dc6-41c356126f42","username":"agoy","email":"agoyy@email.com","full_name":"agoy gayo","role":"Mahasiswa","permissions":["achievement:create","achievement:read","achievement:update"]},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOTc2Yjg4YTEtZDYzMC00MzliLThkYzYtNDFjMzU2MTI2ZjQyIiwicm9sZV9pZCI6Ik1haGFzaXN3YSIsInBlcm1pc3Npb25zIjpbImFjaGlldmVtZW50OmNyZWF0ZSIsImFjaGlldmVtZW50OnJlYWQiLCJhY2hpZXZlbWVudDp1cGRhdGUiXSwiZXhwIjoxNzY0NDM3OTMwLCJpYXQiOjE3NjQ0MzQzMzB9.-3H_M7dw7aSgjSLJFcU_bZiUfafpRESuB3nLnD-sGEI","refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5NzZiODhhMS1kNjMwLTQzOWItOGRjNi00MWMzNTYxMjZmNDIiLCJleHAiOjE3NjQ1MjA3MzAsImlhdCI6MTc2NDQzNDMzMH0.cmDiZ4jCfaM_ptOcGvbln7NgIe5NESiIf__7kCQL4ZM"}},"time":"2025-11-29T23:38:50+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":200,"response":{"status":"success","message":"Profil berhasil diambil","data":{"id":"976b88a1-d630-439b-8dc6-41c356126f42","username":"agoy","email":"agoyy@email.com","full_name":"agoy gayo","role":"Mahasiswa","permissions":["achievement:create","achievement:read","achievement:update"]}},"time":"2025-11-29T23:40:12+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":401,"response":{"status":"error","message":"Token tidak valid atau expired"},"time":"2025-11-30T11:10:21+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/auth/refresh","status":401,"response":{"status":"error","message":"Refresh token tidak valid"},"time":"2025-11-30T11:10:52+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/refresh","status":200,"response":{"status":"success","message":"Token diperbarui","data":{"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOTc2Yjg4YTEtZDYzMC00MzliLThkYzYtNDFjMzU2MTI2ZjQyIiwicm9sZV9pZCI6Ik1haGFzaXN3YSIsInBlcm1pc3Npb25zIjpbImFjaGlldmVtZW50OmNyZWF0ZSIsImFjaGlldmVtZW50OnJlYWQiLCJhY2hpZXZlbWVudDp1cGRhdGUiXSwiZXhwIjoxNzY0NDc5NDcxLCJpYXQiOjE3NjQ0NzU4NzF9.0tNdkEYCuusXT0xGvsjP3TuVClzSjsEQm7k8XjC1CG0"}},"time":"2025-11-30T11:11:11+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":200,"response":{"status":"success","message":"Profil berhasil diambil","data":{"id":"976b88a1-d630-439b-8dc6-41c356126f42","username":"agoy","email":"agoyy@email.com","full_name":"agoy gayo","role":"Mahasiswa","permissions":["achievement:create","achievement:read","achievement:update"]}},"time":"2025-11-30T11:11:22+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"response":{"status":"success","message":"Login berhasil","data":{"user":{"id":"cbc0ba14-f070-461c-9a62-3ab39d07132b","username":"admin","email":"admin@kampus.ac.id","full_name":"Administrator Sistem","role":"Admin","permissions":["achievement:create","achievement:read","achievement:update","achievement:delete","achievement:verify","user:manage"]},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiY2JjMGJhMTQtZjA3MC00NjFjLTlhNjItM2FiMzlkMDcxMzJiIiwicm9sZV9pZCI6IkFkbWluIiwicGVybWlzc2lvbnMiOlsiYWNoaWV2ZW1lbnQ6Y3JlYXRlIiwiYWNoaWV2ZW1lbnQ6cmVhZCIsImFjaGlldmVtZW50OnVwZGF0ZSIsImFjaGlldmVtZW50OmRlbGV0ZSIsImFjaGlldmVtZW50OnZlcmlmeSIsInVzZXI6bWFuYWdlIl0sImV4cCI6MTc2NDQ4NDAzMCwiaWF0IjoxNzY0NDgwNDMwfQ.epHH6OhpsZPLRaFE69YlRY2QBB3R1xYObPF2x2QYJfQ","refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYmMwYmExNC1mMDcwLTQ2MWMtOWE2Mi0zYWIzOWQwNzEzMmIiLCJleHAiOjE3NjQ1NjY4MzAsImlhdCI6MTc2NDQ4MDQzMH0.r8OFL8ujWJLbKTvHYIIXEGSCJ9bME2_XnTpLAlWBmV4"}},"time":"2025-11-30T12:27:10+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":200,"response":{"status":"success","message":"Profil berhasil diambil","data":{"id":"cbc0ba14-f070-461c-9a62-3ab39d07132b","username":"admin","email":"admin@kampus.ac.id","full_name":"Administrator Sistem","role":"Admin","permissions":["achievement:create","achievement:read","achievement:update","achievement:delete","achievement:verify","user:manage"]}},"time":"2025-11-30T12:32:45+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"response":{"status":"success","message":"Login berhasil","data":{"user":{"id":"3d8a6eb2-751f-446e-b205-b4641a32553c","username":"dosen","email":"dosen@kampus.ac.id","full_name":"Dosen Wali","role":"Dosen Wali","permissions":["achievement:read","achievement:verify"]},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiM2Q4YTZlYjItNzUxZi00NDZlLWIyMDUtYjQ2NDFhMzI1NTNjIiwicm9sZV9pZCI6IkRvc2VuIFdhbGkiLCJwZXJtaXNzaW9ucyI6WyJhY2hpZXZlbWVudDpyZWFkIiwiYWNoaWV2ZW1lbnQ6dmVyaWZ5Il0sImV4cCI6MTc2NDQ4NDU3OCwiaWF0IjoxNzY0NDgwOTc4fQ.Q9nhWh5OwZ5VOquHLQNPXgOxF4uudFirCJYx_ZphCgY","refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzZDhhNmViMi03NTFmLTQ0NmUtYjIwNS1iNDY0MWEzMjU1M2MiLCJleHAiOjE3NjQ1NjczNzgsImlhdCI6MTc2NDQ4MDk3OH0.AcIV3hcvCvHCjzlJzlLqS76Cx8qs56pbHtSLPLsjFk4"}},"time":"2025-11-30T12:36:18+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":200,"response":{"status":"success","message":"Profil berhasil diambil","data":{"id":"3d8a6eb2-751f-446e-b205-b4641a32553c","username":"dosen","email":"dosen@kampus.ac.id","full_name":"Dosen Wali","role":"Dosen Wali","permissions":["achievement:read","achievement:verify"]}},"time":"2025-11-30T12:36:31+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":401,"response":{"status":"error","message":"Token tidak valid atau expired"},"time":"2025-11-30T14:21:13+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"response":{"status":"success","message":"Login berhasil","data":{"user":{"id":"cbc0ba14-f070-461c-9a62-3ab39d07132b","username":"admin","email":"admin@kampus.ac.id","full_name":"Administrator Sistem","role":"Admin","permissions":["achievement:create","achievement:read","achievement:update","achievement:delete","achievement:verify","user:manage"]},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiY2JjMGJhMTQtZjA3MC00NjFjLTlhNjItM2FiMzlkMDcxMzJiIiwicm9sZV9pZCI6IkFkbWluIiwicGVybWlzc2lvbnMiOlsiYWNoaWV2ZW1lbnQ6Y3JlYXRlIiwiYWNoaWV2ZW1lbnQ6cmVhZCIsImFjaGlldmVtZW50OnVwZGF0ZSIsImFjaGlldmVtZW50OmRlbGV0ZSIsImFjaGlldmVtZW50OnZlcmlmeSIsInVzZXI6bWFuYWdlIl0sImV4cCI6MTc2NDQ5MDg5NywiaWF0IjoxNzY0NDg3Mjk3fQ.H2-PPa6o1Cq0ef5dBA9NPB3p9-8zj5sqWwc7Fj28EtA","refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYmMwYmExNC1mMDcwLTQ2MWMtOWE2Mi0zYWIzOWQwNzEzMmIiLCJleHAiOjE3NjQ1NzM2OTcsImlhdCI6MTc2NDQ4NzI5N30.odXflfSkGVuF09RsK5o7jvzISWoU5rR8G1zXq4RtjsM"}},"time":"2025-11-30T14:21:37+07:00"}
+{"level":"error","app":"uas_be","method":"POST","path":"/api/v1/users/","status":500,"response":{"status":"error","message":"pq: invalid input syntax for type uuid: \"\""},"time":"2025-11-30T14:22:12+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/users/","status":200,"response":{"status":"success","message":"Daftar user berhasil diambil","data":[{"ID":"cbc0ba14-f070-461c-9a62-3ab39d07132b","Username":"admin","Email":"admin@kampus.ac.id","FullName":"Administrator Sistem","PasswordHash":"","RoleName":"Admin","IsActive":true},{"ID":"3d8a6eb2-751f-446e-b205-b4641a32553c","Username":"dosen","Email":"dosen@kampus.ac.id","FullName":"Dosen Wali","PasswordHash":"","RoleName":"Dosen Wali","IsActive":true},{"ID":"976b88a1-d630-439b-8dc6-41c356126f42","Username":"agoy","Email":"agoyy@email.com","FullName":"agoy gayo","PasswordHash":"","RoleName":"Mahasiswa","IsActive":true},{"ID":"8ab7736b-dfc1-45de-a171-16236a68c342","Username":"panji","Email":"panji@email.com","FullName":"Panji Bachtiar","PasswordHash":"","RoleName":"Mahasiswa","IsActive":true}]},"time":"2025-11-30T14:22:19+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/users/","status":200,"response":{"status":"success","message":"Daftar user berhasil diambil","data":[{"ID":"cbc0ba14-f070-461c-9a62-3ab39d07132b","Username":"admin","Email":"admin@kampus.ac.id","FullName":"Administrator Sistem","RoleName":"Admin","IsActive":true},{"ID":"3d8a6eb2-751f-446e-b205-b4641a32553c","Username":"dosen","Email":"dosen@kampus.ac.id","FullName":"Dosen Wali","RoleName":"Dosen Wali","IsActive":true},{"ID":"976b88a1-d630-439b-8dc6-41c356126f42","Username":"agoy","Email":"agoyy@email.com","FullName":"agoy gayo","RoleName":"Mahasiswa","IsActive":true},{"ID":"8ab7736b-dfc1-45de-a171-16236a68c342","Username":"panji","Email":"panji@email.com","FullName":"Panji Bachtiar","RoleName":"Mahasiswa","IsActive":true}]},"time":"2025-11-30T14:23:54+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/users/1","status":404,"response":{"status":"error","message":"User tidak ditemukan"},"time":"2025-11-30T14:27:18+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/users/","status":200,"response":{"status":"success","message":"Daftar user berhasil diambil","data":[{"ID":"cbc0ba14-f070-461c-9a62-3ab39d07132b","Username":"admin","Email":"admin@kampus.ac.id","FullName":"Administrator Sistem","RoleName":"Admin","IsActive":true},{"ID":"3d8a6eb2-751f-446e-b205-b4641a32553c","Username":"dosen","Email":"dosen@kampus.ac.id","FullName":"Dosen Wali","RoleName":"Dosen Wali","IsActive":true},{"ID":"976b88a1-d630-439b-8dc6-41c356126f42","Username":"agoy","Email":"agoyy@email.com","FullName":"agoy gayo","RoleName":"Mahasiswa","IsActive":true},{"ID":"8ab7736b-dfc1-45de-a171-16236a68c342","Username":"panji","Email":"panji@email.com","FullName":"Panji Bachtiar","RoleName":"Mahasiswa","IsActive":true}]},"time":"2025-11-30T14:27:23+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/users/1","status":404,"response":{"status":"error","message":"User tidak ditemukan"},"time":"2025-11-30T14:30:24+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/users/1","status":200,"response":{"status":"success","message":"User ditemukan","data":{"ID":"8ab7736b-dfc1-45de-a171-16236a68c342","Username":"panji","Email":"panji@email.com","FullName":"Panji Bachtiar","RoleName":"Mahasiswa","IsActive":true}},"time":"2025-11-30T14:37:16+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/users/2","status":200,"response":{"status":"success","message":"User ditemukan","data":{"ID":"976b88a1-d630-439b-8dc6-41c356126f42","Username":"agoy","Email":"agoyy@email.com","FullName":"agoy gayo","RoleName":"Mahasiswa","IsActive":true}},"time":"2025-11-30T14:37:22+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/users/2","status":200,"response":{"status":"success","message":"User ditemukan","data":{"ID":"976b88a1-d630-439b-8dc6-41c356126f42","Username":"agoy","Email":"agoyy@email.com","FullName":"agoy gayo","RoleName":"Mahasiswa","IsActive":true}},"time":"2025-11-30T14:59:06+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/users/2","status":200,"response":{"status":"success","message":"User ditemukan","data":{"ID":"976b88a1-d630-439b-8dc6-41c356126f42","Username":"agoy","Email":"agoyy@email.com","FullName":"agoy gayo","RoleName":"Mahasiswa","IsActive":true}},"time":"2025-11-30T14:59:09+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/users/","status":400,"response":{"status":"error","message":"Input tidak valid","errors":"Unprocessable Entity"},"time":"2025-11-30T15:03:28+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/users/","status":400,"response":{"status":"error","message":"Input tidak valid","errors":"Unprocessable Entity"},"time":"2025-11-30T15:04:22+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/users/","status":400,"response":{"status":"error","message":"Input tidak valid","errors":"Unprocessable Entity"},"time":"2025-11-30T15:04:42+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/users/","status":400,"response":{"status":"error","message":"Input tidak valid","errors":"Unprocessable Entity"},"time":"2025-11-30T15:04:56+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/users/","status":400,"response":{"status":"error","message":"Input tidak valid","errors":"Unprocessable Entity"},"time":"2025-11-30T15:06:31+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/users/","status":201,"response":{"status":"success","message":"User berhasil dibuat","data":{"email":"suga@kampus.ac.id","username":"suga"}},"time":"2025-11-30T15:10:39+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/users/","status":201,"response":{"status":"success","message":"User berhasil dibuat","data":{"email":"putri@kampus.ac.id","role_id":"2c35d326-a744-4bdd-8a53-f78bbd2c58d3","username":"putri"}},"time":"2025-11-30T15:13:05+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/users","status":200,"response":{"status":"success","message":"Daftar user berhasil diambil","data":[{"ID":"5a6618da-28f1-48f1-bb7a-e59d7e695dbc","Username":"putri","Email":"putri@kampus.ac.id","FullName":"Putri A.P","RoleName":"Mahasiswa","IsActive":true},{"ID":"ffdce2d4-8d0e-49ca-9bff-7008dd891964","Username":"suga","Email":"suga@kampus.ac.id","FullName":"Sugara A.P","RoleName":"Mahasiswa","IsActive":true},{"ID":"cbc0ba14-f070-461c-9a62-3ab39d07132b","Username":"admin","Email":"admin@kampus.ac.id","FullName":"Administrator Sistem","RoleName":"Admin","IsActive":true},{"ID":"3d8a6eb2-751f-446e-b205-b4641a32553c","Username":"dosen","Email":"dosen@kampus.ac.id","FullName":"Dosen Wali","RoleName":"Dosen Wali","IsActive":true},{"ID":"976b88a1-d630-439b-8dc6-41c356126f42","Username":"agoy","Email":"agoyy@email.com","FullName":"agoy gayo","RoleName":"Mahasiswa","IsActive":true},{"ID":"8ab7736b-dfc1-45de-a171-16236a68c342","Username":"panji","Email":"panji@email.com","FullName":"Panji Bachtiar","RoleName":"Mahasiswa","IsActive":true}]},"time":"2025-11-30T15:13:17+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/users","status":200,"response":{"status":"success","message":"Daftar user berhasil diambil","data":[{"ID":"8ab7736b-dfc1-45de-a171-16236a68c342","Username":"panji","Email":"panji@email.com","FullName":"Panji Bachtiar","RoleName":"Mahasiswa","IsActive":true},{"ID":"976b88a1-d630-439b-8dc6-41c356126f42","Username":"agoy","Email":"agoyy@email.com","FullName":"agoy gayo","RoleName":"Mahasiswa","IsActive":true},{"ID":"cbc0ba14-f070-461c-9a62-3ab39d07132b","Username":"admin","Email":"admin@kampus.ac.id","FullName":"Administrator Sistem","RoleName":"Admin","IsActive":true},{"ID":"3d8a6eb2-751f-446e-b205-b4641a32553c","Username":"dosen","Email":"dosen@kampus.ac.id","FullName":"Dosen Wali","RoleName":"Dosen Wali","IsActive":true},{"ID":"ffdce2d4-8d0e-49ca-9bff-7008dd891964","Username":"suga","Email":"suga@kampus.ac.id","FullName":"Sugara A.P","RoleName":"Mahasiswa","IsActive":true},{"ID":"5a6618da-28f1-48f1-bb7a-e59d7e695dbc","Username":"putri","Email":"putri@kampus.ac.id","FullName":"Putri A.P","RoleName":"Mahasiswa","IsActive":true}]},"time":"2025-11-30T15:13:50+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/users/6","status":200,"response":{"status":"success","message":"User ditemukan","data":{"ID":"5a6618da-28f1-48f1-bb7a-e59d7e695dbc","Username":"putri","Email":"putri@kampus.ac.id","FullName":"Putri A.P","RoleName":"Mahasiswa","IsActive":true}},"time":"2025-11-30T15:14:15+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/users/7","status":404,"response":{"status":"error","message":"User tidak ditemukan"},"time":"2025-11-30T15:14:19+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/users/7","status":404,"size":0,"time":"2025-11-30T15:21:26+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/users/5","status":200,"size":0,"time":"2025-11-30T15:21:31+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/users/5","status":401,"size":61,"time":"2025-11-30T15:23:39+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/users/5","status":401,"size":61,"time":"2025-11-30T15:23:41+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/refresh","status":200,"size":401,"time":"2025-11-30T15:24:41+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":401,"size":52,"time":"2025-11-30T15:24:53+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":953,"time":"2025-11-30T15:25:04+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/users/5","status":200,"size":209,"time":"2025-11-30T15:25:17+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":953,"time":"2025-12-01T14:19:16+07:00"}
+{"level":"error","app":"uas_be","method":"POST","path":"/api/v1/users/","status":500,"size":49,"time":"2025-12-01T14:19:33+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/users/","status":200,"size":1012,"time":"2025-12-01T14:19:38+07:00"}
+{"level":"error","app":"uas_be","method":"POST","path":"/api/v1/users/","status":500,"size":49,"time":"2025-12-01T14:20:17+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/users/","status":201,"size":160,"time":"2025-12-01T14:20:54+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/users/7","status":200,"size":218,"time":"2025-12-01T14:21:59+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/users/ff2f4734-6353-4665-81ea-6d9123574d71","status":200,"size":218,"time":"2025-12-01T14:22:14+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/users/ff2f4734-6353-4665-81ea-6d9123574d72","status":404,"size":51,"time":"2025-12-01T14:22:17+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/users/ff2f4734-6353-4665-81ea-6d9123574d71","status":200,"size":218,"time":"2025-12-01T14:22:19+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/users","status":200,"size":1176,"time":"2025-12-01T14:23:01+07:00"}
+{"level":"error","app":"uas_be","method":"PUT","path":"/api/v1/7/role","status":500,"size":56,"time":"2025-12-01T14:24:43+07:00"}
+{"level":"info","app":"uas_be","method":"PUT","path":"/api/v1/users/7/role","status":200,"size":62,"time":"2025-12-01T14:24:52+07:00"}
+{"level":"error","app":"uas_be","method":"PUT","path":"/api/v1/users/","status":500,"size":49,"time":"2025-12-01T14:37:49+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/users/","status":200,"size":1175,"time":"2025-12-01T14:37:55+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/users/","status":401,"size":61,"time":"2025-12-01T15:35:15+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/users/5","status":401,"size":61,"time":"2025-12-01T15:42:52+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":953,"time":"2025-12-01T23:14:31+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/students/5","status":500,"size":60,"time":"2025-12-01T23:15:00+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/students","status":500,"size":58,"time":"2025-12-01T23:15:26+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/students/","status":500,"size":59,"time":"2025-12-01T23:16:06+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/students/","status":500,"size":59,"time":"2025-12-01T23:17:40+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/students/","status":200,"size":294,"time":"2025-12-01T23:19:07+07:00"}
+{"level":"info","app":"uas_be","method":"PUT","path":"/api/v1/users/7/role","status":200,"size":62,"time":"2025-12-01T23:23:28+07:00"}
+{"level":"error","app":"uas_be","method":"POST","path":"/api/v1/users/","status":500,"size":49,"time":"2025-12-01T23:24:47+07:00"}
+{"level":"error","app":"uas_be","method":"POST","path":"/api/v1/users/","status":500,"size":49,"time":"2025-12-01T23:24:50+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/users/","status":201,"size":160,"time":"2025-12-01T23:25:00+07:00"}
+{"level":"error","app":"uas_be","method":"POST","path":"/api/v1/students/8/advisor","status":500,"size":49,"time":"2025-12-01T23:26:42+07:00"}
+{"level":"warn","app":"uas_be","method":"PUT","path":"/api/v1/students/8/advisor","status":404,"size":56,"time":"2025-12-01T23:26:48+07:00"}
+{"level":"warn","app":"uas_be","method":"PUT","path":"/api/v1/students/1/advisor","status":404,"size":57,"time":"2025-12-01T23:27:00+07:00"}
+{"level":"info","app":"uas_be","method":"PUT","path":"/api/v1/students/1/advisor","status":200,"size":183,"time":"2025-12-01T23:28:56+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/students","status":200,"size":328,"time":"2025-12-01T23:29:13+07:00"}
+{"level":"warn","app":"uas_be","method":"PUT","path":"/api/v1/students/1/advisor","status":404,"size":57,"time":"2025-12-01T23:31:07+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":816,"time":"2025-12-04T16:52:45+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":401,"size":56,"time":"2025-12-04T16:56:30+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":816,"time":"2025-12-04T16:56:46+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":401,"size":56,"time":"2025-12-04T16:57:00+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":401,"size":56,"time":"2025-12-04T17:00:02+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":401,"size":56,"time":"2025-12-04T17:00:48+07:00"}
+{"level":"error","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":500,"size":70,"time":"2025-12-04T17:03:55+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":201,"size":1141,"time":"2025-12-04T17:07:36+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":201,"size":1149,"time":"2025-12-04T17:09:38+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":201,"size":967,"time":"2025-12-04T17:15:47+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":201,"size":967,"time":"2025-12-04T17:17:12+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":401,"size":61,"time":"2025-12-04T19:36:35+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":401,"size":61,"time":"2025-12-04T21:02:09+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":816,"time":"2025-12-04T21:17:00+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":500,"size":49,"time":"2025-12-04T21:17:17+07:00"}
+{"level":"error","app":"uas_be","method":"POST","path":"/api/v1/achievements/69315d68a7d9fa051992868a/submit","status":500,"size":95,"time":"2025-12-04T21:19:07+07:00"}
+{"level":"error","app":"uas_be","method":"POST","path":"/api/v1/achievements/69315d68a7d9fa051992868a/submit","status":500,"size":95,"time":"2025-12-04T21:20:38+07:00"}
+{"level":"error","app":"uas_be","method":"POST","path":"/api/v1/achievements/69315d68a7d9fa051992868a/submit","status":500,"size":95,"time":"2025-12-04T21:20:56+07:00"}
+{"level":"error","app":"uas_be","method":"POST","path":"/api/v1/achievements/69315d68a7d9fa051992868a/submit","status":500,"size":95,"time":"2025-12-04T21:21:11+07:00"}
+{"level":"error","app":"uas_be","method":"POST","path":"/api/v1/achievements/69315de2a7d9fa051992868b/submit","status":500,"size":95,"time":"2025-12-04T21:22:30+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/69315de2a7d9fa051992868b/submit","status":200,"size":156,"time":"2025-12-04T21:22:57+07:00"}
+{"level":"warn","app":"uas_be","method":"DELETE","path":"/api/v1/achievements/69315de2a7d9fa051992868b","status":400,"size":70,"time":"2025-12-04T21:25:22+07:00"}
+{"level":"info","app":"uas_be","method":"DELETE","path":"/api/v1/achievements/69315d68a7d9fa051992868a","status":200,"size":64,"time":"2025-12-04T21:25:40+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":401,"size":61,"time":"2025-12-04T22:32:21+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":816,"time":"2025-12-04T22:32:31+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":611,"time":"2025-12-04T22:32:46+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/69315fa8a7d9fa051992868d","status":200,"size":587,"time":"2025-12-04T22:33:17+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":611,"time":"2025-12-04T22:34:03+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":848,"time":"2025-12-04T22:37:45+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/69315de2a7d9fa051992868b","status":200,"size":803,"time":"2025-12-04T22:38:14+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/69315de2a7d9fa051992868b","status":200,"size":793,"time":"2025-12-04T22:44:36+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/69315de2a7d9fa051992868b","status":200,"size":711,"time":"2025-12-04T22:48:32+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/69315de2a7d9fa051992868b","status":200,"size":711,"time":"2025-12-04T22:48:40+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":834,"time":"2025-12-04T22:49:09+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":834,"time":"2025-12-04T22:49:12+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/69315f53a7d9fa051992868c","status":200,"size":577,"time":"2025-12-04T22:49:22+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":834,"time":"2025-12-04T22:49:36+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/69315de2a7d9fa051992868b","status":200,"size":711,"time":"2025-12-04T22:49:47+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/69315de2a7d9fa051992868b","status":200,"size":711,"time":"2025-12-04T23:27:59+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/","status":500,"size":43,"time":"2025-12-04T23:29:10+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/favicon.ico","status":500,"size":54,"time":"2025-12-04T23:29:11+07:00"}
+{"level":"error","app":"uas_be","method":"POST","path":"/api/v1/login","status":500,"size":56,"time":"2025-12-05T02:28:32+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":781,"time":"2025-12-05T02:28:47+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":70,"time":"2025-12-05T02:29:01+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":70,"time":"2025-12-05T02:29:07+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":70,"time":"2025-12-05T02:32:02+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":70,"time":"2025-12-05T02:32:57+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":70,"time":"2025-12-05T02:35:43+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":70,"time":"2025-12-05T02:35:54+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":816,"time":"2025-12-05T02:36:41+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":834,"time":"2025-12-05T02:37:03+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":822,"time":"2025-12-05T02:38:31+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":953,"time":"2025-12-05T02:39:42+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":834,"time":"2025-12-05T02:39:55+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":834,"time":"2025-12-05T02:39:59+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":70,"time":"2025-12-05T02:55:10+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":70,"time":"2025-12-05T02:55:15+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":70,"time":"2025-12-05T02:56:52+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":70,"time":"2025-12-05T02:57:14+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":70,"time":"2025-12-05T02:58:04+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":403,"size":86,"time":"2025-12-05T02:58:21+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":403,"size":86,"time":"2025-12-05T02:58:51+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":403,"size":86,"time":"2025-12-05T03:02:41+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":834,"time":"2025-12-05T03:05:06+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":834,"time":"2025-12-05T03:06:37+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/69315f53a7d9fa051992868c","status":200,"size":577,"time":"2025-12-05T03:07:14+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":834,"time":"2025-12-05T03:14:32+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":996,"time":"2025-12-05T03:15:17+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":816,"time":"2025-12-05T03:15:31+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":500,"size":60,"time":"2025-12-05T03:15:41+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":500,"size":60,"time":"2025-12-05T03:15:47+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":500,"size":60,"time":"2025-12-05T03:16:07+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":500,"size":60,"time":"2025-12-05T03:29:03+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":500,"size":60,"time":"2025-12-05T03:33:57+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":500,"size":60,"time":"2025-12-05T03:33:59+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":996,"time":"2025-12-05T03:34:47+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":996,"time":"2025-12-05T03:35:48+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":834,"time":"2025-12-05T03:38:33+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":500,"size":60,"time":"2025-12-05T03:38:44+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":500,"size":60,"time":"2025-12-05T03:39:09+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":953,"time":"2025-12-05T03:39:18+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":500,"size":60,"time":"2025-12-05T03:39:37+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":996,"time":"2025-12-05T03:39:48+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":401,"size":61,"time":"2025-12-05T03:40:05+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":781,"time":"2025-12-05T03:40:09+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":996,"time":"2025-12-05T03:40:19+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":996,"time":"2025-12-05T04:19:14+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/69315f53a7d9fa051992868c","status":200,"size":577,"time":"2025-12-05T04:21:16+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":953,"time":"2025-12-12T22:38:29+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":953,"time":"2025-12-12T22:38:35+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":953,"time":"2025-12-12T22:38:59+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":953,"time":"2025-12-12T22:39:01+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":200,"size":340,"time":"2025-12-12T22:47:45+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":401,"size":61,"time":"2025-12-13T11:18:54+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":816,"time":"2025-12-13T11:19:01+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":816,"time":"2025-12-13T11:19:39+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":401,"size":61,"time":"2025-12-13T11:19:55+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":401,"size":61,"time":"2025-12-13T11:19:57+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":200,"size":273,"time":"2025-12-13T11:20:11+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":816,"time":"2025-12-13T11:28:12+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":400,"size":133,"time":"2025-12-13T11:46:00+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":816,"time":"2025-12-13T11:46:07+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":953,"time":"2025-12-13T11:47:18+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/auth/login","status":500,"size":49,"time":"2025-12-13T11:52:26+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":401,"size":45,"time":"2025-12-13T11:52:32+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":401,"size":45,"time":"2025-12-13T11:52:47+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":775,"time":"2025-12-13T11:55:48+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":401,"size":52,"time":"2025-12-13T12:01:23+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":775,"time":"2025-12-13T12:01:41+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":200,"size":258,"time":"2025-12-13T12:05:33+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":200,"size":258,"time":"2025-12-13T12:31:04+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":200,"size":258,"time":"2025-12-13T12:31:07+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/users/","status":401,"size":52,"time":"2025-12-13T12:32:16+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/users/","status":403,"size":70,"time":"2025-12-13T12:32:39+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":953,"time":"2025-12-13T12:33:00+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/users/","status":200,"size":1328,"time":"2025-12-13T12:33:14+07:00"}
+{"level":"error","app":"uas_be","method":"POST","path":"/api/v1/users/5","status":500,"size":49,"time":"2025-12-13T12:33:56+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/users/5","status":200,"size":209,"time":"2025-12-13T12:34:01+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/users/","status":201,"size":160,"time":"2025-12-13T12:55:29+07:00"}
+{"level":"error","app":"uas_be","method":"PUT","path":"/api/v1/users/","status":500,"size":49,"time":"2025-12-13T12:57:59+07:00"}
+{"level":"warn","app":"uas_be","method":"PUT","path":"/api/v1/users/9","status":400,"size":89,"time":"2025-12-13T12:58:39+07:00"}
+{"level":"info","app":"uas_be","method":"PUT","path":"/api/v1/users/9","status":200,"size":57,"time":"2025-12-13T12:59:33+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":401,"size":52,"time":"2025-12-13T18:37:23+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":816,"time":"2025-12-13T21:11:54+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":403,"size":78,"time":"2025-12-13T21:13:49+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":403,"size":78,"time":"2025-12-13T21:14:20+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":816,"time":"2025-12-13T21:16:10+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":403,"size":78,"time":"2025-12-13T21:16:28+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":403,"size":78,"time":"2025-12-13T21:17:58+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":403,"size":78,"time":"2025-12-13T21:18:10+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":201,"size":115,"time":"2025-12-13T21:22:20+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":201,"size":115,"time":"2025-12-13T21:49:11+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":201,"size":115,"time":"2025-12-13T22:02:57+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":201,"size":115,"time":"2025-12-13T22:03:11+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":201,"size":115,"time":"2025-12-13T22:04:06+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":2191,"time":"2025-12-13T22:05:46+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/achievements/2","status":404,"size":55,"time":"2025-12-13T22:06:07+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/693d7ce73af3d64a2771db72","status":200,"size":503,"time":"2025-12-13T22:06:43+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":201,"size":115,"time":"2025-12-13T22:12:55+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/693d8277bb88969b7b8a0aba","status":200,"size":498,"time":"2025-12-13T22:13:21+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d8277bb88969b7b8a0aba/submit","status":401,"size":61,"time":"2025-12-13T23:34:09+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":816,"time":"2025-12-13T23:34:14+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d8277bb88969b7b8a0aba/submit","status":200,"size":156,"time":"2025-12-13T23:34:28+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":775,"time":"2025-12-13T23:35:29+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/693d7ce73af3d64a2771db72","status":200,"size":503,"time":"2025-12-13T23:35:44+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":2423,"time":"2025-12-13T23:35:50+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":401,"size":61,"time":"2025-12-13T23:36:20+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":403,"size":52,"time":"2025-12-13T23:36:42+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":403,"size":52,"time":"2025-12-13T23:37:49+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":401,"size":45,"time":"2025-12-13T23:48:05+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":401,"size":45,"time":"2025-12-13T23:48:17+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":401,"size":45,"time":"2025-12-13T23:48:23+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":401,"size":45,"time":"2025-12-13T23:48:35+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":401,"size":45,"time":"2025-12-13T23:48:43+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":781,"time":"2025-12-13T23:50:42+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":2423,"time":"2025-12-13T23:51:03+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d8277bb88969b7b8a0aba/verify","status":200,"size":195,"time":"2025-12-13T23:51:37+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":2422,"time":"2025-12-13T23:52:35+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/achievements/693d8066bb88969b7b8a0ab9/verify","status":500,"size":49,"time":"2025-12-13T23:53:01+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d8066bb88969b7b8a0ab9/verify","status":400,"size":77,"time":"2025-12-13T23:53:05+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d80213af3d64a2771db73/verify","status":400,"size":77,"time":"2025-12-13T23:53:30+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/69315de2a7d9fa051992868b/verify","status":200,"size":195,"time":"2025-12-13T23:53:53+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":401,"size":61,"time":"2025-12-14T01:03:12+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":781,"time":"2025-12-14T01:03:17+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":70,"time":"2025-12-14T01:03:27+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":68,"time":"2025-12-14T01:06:20+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":43,"time":"2025-12-14T01:09:18+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":43,"time":"2025-12-14T01:09:22+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":43,"time":"2025-12-14T01:09:23+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":73,"time":"2025-12-14T01:09:58+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":816,"time":"2025-12-14T01:15:36+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":2421,"time":"2025-12-14T01:15:48+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d8277bb88969b7b8a0aba/submit","status":401,"size":61,"time":"2025-12-14T01:16:27+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d8277bb88969b7b8a0aba/submit","status":401,"size":61,"time":"2025-12-14T01:16:32+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d8277bb88969b7b8a0aba/submit","status":400,"size":78,"time":"2025-12-14T01:16:46+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d769c3af3d64a2771db71/submit","status":200,"size":156,"time":"2025-12-14T01:17:07+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":309,"time":"2025-12-14T01:17:26+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/69315de2a7d9fa051992868b/verify","status":400,"size":77,"time":"2025-12-14T01:17:45+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d769c3af3d64a2771db71/verify","status":403,"size":66,"time":"2025-12-14T01:18:10+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":781,"time":"2025-12-14T01:18:32+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d769c3af3d64a2771db71/verify","status":403,"size":66,"time":"2025-12-14T01:18:42+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":309,"time":"2025-12-14T01:19:03+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":309,"time":"2025-12-14T01:19:07+07:00"}
+{"level":"error","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d769c3af3d64a2771db71/verify","status":500,"size":59,"time":"2025-12-14T01:22:50+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d769c3af3d64a2771db71/verify","status":200,"size":195,"time":"2025-12-14T01:23:49+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":73,"time":"2025-12-14T01:23:59+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":401,"size":61,"time":"2025-12-14T02:43:10+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":816,"time":"2025-12-14T02:43:21+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":2424,"time":"2025-12-14T02:43:32+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d769c3af3d64a2771db71/submit","status":400,"size":78,"time":"2025-12-14T02:43:51+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d7ce73af3d64a2771db72/submit","status":200,"size":156,"time":"2025-12-14T02:44:13+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d8066bb88969b7b8a0ab9/submit","status":200,"size":156,"time":"2025-12-14T02:44:40+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":781,"time":"2025-12-14T02:45:05+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":544,"time":"2025-12-14T02:45:19+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d7ce73af3d64a2771db72/reject","status":403,"size":66,"time":"2025-12-14T02:45:59+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d7ce73af3d64a2771db72/reject","status":403,"size":66,"time":"2025-12-14T02:46:32+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d7ce73af3d64a2771db72/reject","status":200,"size":262,"time":"2025-12-14T02:48:17+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":302,"time":"2025-12-14T02:53:54+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/achievements/693d8066bb88969b7b8a0ab9/reject","status":500,"size":49,"time":"2025-12-14T02:54:16+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d8066bb88969b7b8a0ab9/reject","status":403,"size":66,"time":"2025-12-14T02:54:22+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d8066bb88969b7b8a0ab9/reject","status":403,"size":66,"time":"2025-12-14T02:54:25+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d8066bb88969b7b8a0ab9/reject","status":403,"size":66,"time":"2025-12-14T02:55:59+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d8066bb88969b7b8a0ab9/reject","status":403,"size":66,"time":"2025-12-14T02:56:00+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d8066bb88969b7b8a0ab9/reject","status":403,"size":66,"time":"2025-12-14T02:56:02+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d8066bb88969b7b8a0ab9/reject","status":403,"size":66,"time":"2025-12-14T02:56:46+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d8066bb88969b7b8a0ab9/reject","status":403,"size":66,"time":"2025-12-14T03:04:54+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/693d8066bb88969b7b8a0ab9/reject","status":200,"size":216,"time":"2025-12-14T03:05:13+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":816,"time":"2025-12-14T05:02:30+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":201,"size":115,"time":"2025-12-14T05:02:42+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":2661,"time":"2025-12-14T05:03:25+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/693de2829693602faf3ec49f","status":200,"size":419,"time":"2025-12-14T05:03:33+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/693de2829693602faf3ec49f/attachments","status":400,"size":59,"time":"2025-12-14T05:07:06+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/achievements/693de2829693602faf3ec49f/attachments","status":400,"size":59,"time":"2025-12-14T05:07:42+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/693de2829693602faf3ec49f/attachments","status":200,"size":276,"time":"2025-12-14T05:08:39+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/693de2829693602faf3ec49f/attachments","status":200,"size":275,"time":"2025-12-14T05:10:15+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/693de2829693602faf3ec49f","status":200,"size":812,"time":"2025-12-14T05:10:27+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":201,"size":115,"time":"2025-12-14T05:15:26+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/achievements/693de57e6ba8515a2ac2ee52/attachments","status":500,"size":49,"time":"2025-12-14T05:15:44+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/693de57e6ba8515a2ac2ee52/attachments","status":200,"size":298,"time":"2025-12-14T05:15:48+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/693de57e6ba8515a2ac2ee52","status":200,"size":637,"time":"2025-12-14T05:16:05+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":816,"time":"2025-12-14T13:27:02+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":201,"size":115,"time":"2025-12-14T13:27:56+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/achievements/693e58ec9a837c094a2a18f5","status":401,"size":61,"time":"2025-12-14T13:28:18+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/693e58ec9a837c094a2a18f5","status":200,"size":419,"time":"2025-12-14T13:28:35+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/achievements/","status":201,"size":115,"time":"2025-12-14T13:32:43+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/693e5a0b9a837c094a2a18f6","status":200,"size":553,"time":"2025-12-14T13:32:52+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/achievements/693e5a0b9a837c094a2a18f6/history","status":401,"size":52,"time":"2025-12-14T14:38:16+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/achievements/693e5a0b9a837c094a2a18f6/history","status":401,"size":61,"time":"2025-12-14T14:38:23+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":816,"time":"2025-12-14T14:38:28+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/693e5a0b9a837c094a2a18f6/history","status":200,"size":129,"time":"2025-12-14T14:38:39+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/693d7ce73af3d64a2771db72/history","status":200,"size":320,"time":"2025-12-14T14:45:06+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":816,"time":"2025-12-14T17:16:08+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/students/","status":403,"size":70,"time":"2025-12-14T17:16:23+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":953,"time":"2025-12-14T17:16:41+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/students/","status":403,"size":70,"time":"2025-12-14T17:16:55+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/students/","status":403,"size":70,"time":"2025-12-14T17:16:58+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/students/","status":403,"size":70,"time":"2025-12-14T17:17:02+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/students/","status":200,"size":328,"time":"2025-12-14T17:17:39+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/students/35fad1d2-618d-4af4-87d9-8eaa7dc47c44/achievements","status":200,"size":1848,"time":"2025-12-14T17:19:02+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/students/1/achievements","status":200,"size":1848,"time":"2025-12-14T17:19:30+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/students/2/achievements","status":404,"size":56,"time":"2025-12-14T17:19:37+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/students/1/achievements","status":200,"size":1848,"time":"2025-12-14T17:19:42+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/students/","status":200,"size":328,"time":"2025-12-14T17:21:48+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/students/STD-7a0bdfe0","status":404,"size":56,"time":"2025-12-14T17:21:58+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/students/","status":200,"size":328,"time":"2025-12-14T17:22:02+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/students/64727db1-eb25-4c95-9bda-b19bbd0efad6","status":404,"size":56,"time":"2025-12-14T17:22:11+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/students/","status":401,"size":61,"time":"2025-12-14T19:23:33+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/students/","status":401,"size":61,"time":"2025-12-14T20:08:10+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":781,"time":"2025-12-15T22:32:31+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/lecturers/","status":500,"size":60,"time":"2025-12-15T22:33:22+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/lecturers/","status":403,"size":70,"time":"2025-12-15T22:34:16+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/lecturers/","status":200,"size":441,"time":"2025-12-15T22:37:43+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/lecturers/be3f076e-ae5c-419a-bc06-f2b34ee0b1b0/advisees","status":200,"size":328,"time":"2025-12-15T22:37:58+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/lecturers/be3f076e-ae5c-419a-bc06-f2b34ee0b1b0/advisees","status":200,"size":246,"time":"2025-12-15T22:43:21+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":816,"time":"2025-12-16T11:13:03+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/lecturers/be3f076e-ae5c-419a-bc06-f2b34ee0b1b0/advisees","status":403,"size":70,"time":"2025-12-16T11:13:38+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":781,"time":"2025-12-16T11:14:25+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/lecturers/be3f076e-ae5c-419a-bc06-f2b34ee0b1b0/advisees","status":200,"size":246,"time":"2025-12-16T11:14:41+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/lecturers/","status":200,"size":441,"time":"2025-12-16T11:14:49+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/reports/statitic","status":500,"size":66,"time":"2025-12-16T11:48:21+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/reports/statistic","status":500,"size":67,"time":"2025-12-16T11:48:30+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/reports/statistics","status":500,"size":68,"time":"2025-12-16T11:48:37+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/reports/statistics","status":500,"size":68,"time":"2025-12-16T11:50:17+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/reports/statistics","status":200,"size":130,"time":"2025-12-16T11:51:02+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/reports/statistics","status":200,"size":296,"time":"2025-12-16T11:55:52+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/reports/statistics/35fad1d2-618d-4af4-87d9-8eaa7dc47c44","status":500,"size":105,"time":"2025-12-16T11:56:37+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/api/v1/reports/students/35fad1d2-618d-4af4-87d9-8eaa7dc47c44","status":500,"size":103,"time":"2025-12-16T11:56:47+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/reports/student/35fad1d2-618d-4af4-87d9-8eaa7dc47c44","status":200,"size":12556,"time":"2025-12-16T11:57:32+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/reports/student/35fad1d2-618d-4af4-87d9-8eaa7dc47c44","status":401,"size":61,"time":"2025-12-16T12:33:01+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":781,"time":"2025-12-16T12:33:10+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/reports/student/35fad1d2-618d-4af4-87d9-8eaa7dc47c44","status":200,"size":4826,"time":"2025-12-16T12:33:26+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":781,"time":"2025-12-16T19:05:10+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":75,"time":"2025-12-16T19:05:26+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":816,"time":"2025-12-16T19:05:48+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":2705,"time":"2025-12-16T19:05:57+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":2705,"time":"2025-12-16T19:07:01+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":75,"time":"2025-12-16T19:07:45+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":75,"time":"2025-12-16T19:08:00+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements/","status":200,"size":2705,"time":"2025-12-16T19:08:11+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements","status":200,"size":601,"time":"2025-12-16T19:10:56+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements","status":200,"size":2705,"time":"2025-12-16T19:11:07+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements","status":200,"size":2705,"time":"2025-12-16T19:20:12+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/","status":500,"size":43,"time":"2025-12-16T19:33:11+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/favicon.ico","status":500,"size":54,"time":"2025-12-16T19:33:11+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":781,"time":"2025-12-16T19:47:18+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/lecturers/","status":200,"size":441,"time":"2025-12-16T19:47:27+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/lecturers/be3f076e-ae5c-419a-bc06-f2b34ee0b1b0/advisees","status":200,"size":246,"time":"2025-12-16T19:47:46+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":400,"size":112,"time":"2025-12-16T19:57:10+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":953,"time":"2025-12-16T19:57:33+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/lecturers/be3f076e-ae5c-419a-bc06-f2b34ee0b1b0/advisees","status":403,"size":47,"time":"2025-12-16T19:57:45+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/lecturers/be3f076e-ae5c-419a-bc06-f2b34ee0b1b0/advisees","status":200,"size":252,"time":"2025-12-16T19:59:02+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":816,"time":"2025-12-16T19:59:07+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/lecturers/be3f076e-ae5c-419a-bc06-f2b34ee0b1b0/advisees","status":403,"size":70,"time":"2025-12-16T19:59:18+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/lecturers/be3f076e-ae5c-419a-bc06-f2b34ee0b1b0/advisees","status":200,"size":252,"time":"2025-12-16T19:59:31+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":953,"time":"2025-12-16T20:24:15+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":200,"size":340,"time":"2025-12-16T20:25:17+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":953,"time":"2025-12-16T20:27:17+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/auth/profile","status":200,"size":340,"time":"2025-12-16T20:27:28+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":953,"time":"2025-12-16T20:33:08+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/users","status":200,"size":1488,"time":"2025-12-16T20:33:27+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/users/2","status":200,"size":206,"time":"2025-12-16T20:34:17+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":953,"time":"2025-12-16T20:42:45+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements","status":200,"size":2705,"time":"2025-12-16T20:43:07+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements","status":200,"size":1429,"time":"2025-12-16T20:43:16+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements","status":200,"size":1402,"time":"2025-12-16T20:43:23+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/achievements","status":200,"size":61,"time":"2025-12-16T20:43:37+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/","status":500,"size":43,"time":"2025-12-16T22:04:21+07:00"}
+{"level":"error","app":"uas_be","method":"GET","path":"/favicon.ico","status":500,"size":54,"time":"2025-12-16T22:04:21+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":781,"time":"2025-12-16T22:04:45+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/reports/student/35fad1d2-618d-4af4-87d9-8eaa7dc47c44","status":200,"size":4826,"time":"2025-12-16T22:04:57+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/reports/statistics","status":200,"size":296,"time":"2025-12-16T22:05:08+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/auth/refresh","status":401,"size":60,"time":"2025-12-16T22:05:54+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/auth/refresh","status":401,"size":56,"time":"2025-12-16T22:06:01+07:00"}
+{"level":"warn","app":"uas_be","method":"POST","path":"/api/v1/auth/refresh","status":401,"size":56,"time":"2025-12-16T22:06:34+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/refresh","status":200,"size":375,"time":"2025-12-16T22:06:45+07:00"}
+{"level":"info","app":"uas_be","method":"GET","path":"/api/v1/reports/statistics","status":200,"size":296,"time":"2025-12-16T22:08:40+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/login","status":200,"size":781,"time":"2025-12-16T22:08:47+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/reports/statistics","status":401,"size":61,"time":"2025-12-16T22:09:01+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/logout","status":200,"size":48,"time":"2025-12-16T22:10:21+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/reports/statistics","status":401,"size":56,"time":"2025-12-16T22:10:34+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/reports/statistics","status":401,"size":61,"time":"2025-12-16T22:10:50+07:00"}
+{"level":"info","app":"uas_be","method":"POST","path":"/api/v1/auth/refresh","status":200,"size":375,"time":"2025-12-16T22:10:58+07:00"}
+{"level":"warn","app":"uas_be","method":"GET","path":"/api/v1/reports/statistics","status":401,"size":56,"time":"2025-12-16T22:11:15+07:00"}
