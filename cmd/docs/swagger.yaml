@@ -1,0 +1,929 @@
+basePath: /api/v1
+definitions:
+  models.AchievementCreateInput:
+    properties:
+      achievement_type:
+        type: string
+      description:
+        type: string
+      details:
+        additionalProperties: true
+        type: object
+      tags:
+        items:
+          type: string
+        type: array
+      title:
+        type: string
+    type: object
+  models.LoginReq:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  models.MetaInfo:
+    properties:
+      data: {}
+      errors: {}
+      message:
+        type: string
+      meta: {}
+      status:
+        type: string
+    type: object
+  models.RegistReq:
+    properties:
+      email:
+        type: string
+      full_name:
+        minLength: 6
+        type: string
+      password:
+        minLength: 8
+        type: string
+      username:
+        maxLength: 30
+        minLength: 6
+        type: string
+    required:
+    - email
+    - full_name
+    - password
+    - username
+    type: object
+  models.UpdateAdvisorRequest:
+    properties:
+      advisor_id:
+        type: string
+    type: object
+  models.UserCreateRequest:
+    properties:
+      email:
+        type: string
+      full_name:
+        type: string
+      password:
+        type: string
+      role_id:
+        type: string
+      username:
+        type: string
+    type: object
+  models.UserRoleUpdateRequest:
+    properties:
+      role_id:
+        type: string
+    type: object
+  models.UserUpdateRequest:
+    properties:
+      email:
+        type: string
+      full_name:
+        type: string
+      username:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: API Sistem Prestasi Mahasiswa
+  title: UAS Achievement API
+  version: "1.0"
+paths:
+  /achievements:
+    get:
+      description: Mengambil daftar prestasi sesuai hak akses user
+      parameters:
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      - description: Limit per page
+        in: query
+        name: limit
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: List prestasi
+      tags:
+      - Achievements
+    post:
+      consumes:
+      - application/json
+      description: Membuat data prestasi baru
+      parameters:
+      - description: Payload prestasi
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.AchievementCreateInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Buat prestasi
+      tags:
+      - Achievements
+  /achievements/{id}:
+    delete:
+      description: Menghapus prestasi draft
+      parameters:
+      - description: Achievement ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Hapus prestasi
+      tags:
+      - Achievements
+    get:
+      description: Mengambil detail prestasi berdasarkan ID
+      parameters:
+      - description: Achievement ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Detail prestasi
+      tags:
+      - Achievements
+    put:
+      consumes:
+      - application/json
+      description: Update data prestasi (hanya status draft)
+      parameters:
+      - description: Achievement ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Payload update prestasi
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.AchievementCreateInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Update prestasi
+      tags:
+      - Achievements
+  /achievements/{id}/attachments:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Upload file prestasi
+      parameters:
+      - description: Achievement ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Files
+        in: formData
+        name: files
+        required: true
+        type: file
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Upload lampiran
+      tags:
+      - Achievements
+  /achievements/{id}/history:
+    get:
+      description: Mengambil history status prestasi
+      parameters:
+      - description: Achievement ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Riwayat prestasi
+      tags:
+      - Achievements
+  /achievements/{id}/reject:
+    post:
+      consumes:
+      - application/json
+      description: Menolak prestasi dengan catatan
+      parameters:
+      - description: Achievement ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Catatan penolakan
+        in: body
+        name: body
+        required: true
+        schema:
+          type: object
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Tolak prestasi
+      tags:
+      - Achievements
+  /achievements/{id}/submit:
+    post:
+      description: Mengirim prestasi untuk diverifikasi
+      parameters:
+      - description: Achievement ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Submit prestasi
+      tags:
+      - Achievements
+  /achievements/{id}/verify:
+    post:
+      description: Menerima dan memverifikasi prestasi
+      parameters:
+      - description: Achievement ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Verifikasi prestasi
+      tags:
+      - Achievements
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Login menggunakan email dan password
+      parameters:
+      - description: Login request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.LoginReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      summary: Login user
+      tags:
+      - Auth
+  /auth/logout:
+    post:
+      description: Logout dan blacklist token
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Logout user
+      tags:
+      - Auth
+  /auth/profile:
+    get:
+      description: Mengambil data user yang sedang login
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Ambil profil user
+      tags:
+      - Auth
+  /auth/refresh:
+    post:
+      description: Generate access token baru menggunakan refresh token
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Refresh access token
+      tags:
+      - Auth
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Registrasi user baru dengan role default Mahasiswa
+      parameters:
+      - description: Register request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.RegistReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      summary: Register user baru
+      tags:
+      - Auth
+  /lecturers:
+    get:
+      description: Mengambil daftar seluruh dosen
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: List dosen
+      tags:
+      - Lecturers & Students
+  /lecturers/{id}/advisees:
+    get:
+      description: Mengambil daftar mahasiswa yang dibimbing oleh dosen
+      parameters:
+      - description: Lecturer ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Daftar mahasiswa bimbingan
+      tags:
+      - Lecturers & Students
+  /reports/statistics:
+    get:
+      description: Menampilkan statistik prestasi global dan per mahasiswa
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Statistik prestasi
+      tags:
+      - Reports
+  /reports/student/{id}:
+    get:
+      description: Menampilkan daftar prestasi dan status milik satu mahasiswa
+      parameters:
+      - description: Student ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Laporan prestasi mahasiswa
+      tags:
+      - Reports
+  /students:
+    get:
+      description: Menampilkan daftar seluruh mahasiswa
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Ambil semua mahasiswa
+      tags:
+      - Lecturers & Students
+  /students/{id}:
+    get:
+      description: Menampilkan detail mahasiswa berdasarkan ID atau index
+      parameters:
+      - description: Student ID atau index
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Detail mahasiswa
+      tags:
+      - Lecturers & Students
+  /students/{id}/achievements:
+    get:
+      description: Menampilkan daftar prestasi milik mahasiswa
+      parameters:
+      - description: Student ID atau index
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Daftar prestasi mahasiswa
+      tags:
+      - Lecturers & Students
+  /students/{id}/advisor:
+    put:
+      consumes:
+      - application/json
+      description: Menetapkan atau menghapus dosen wali mahasiswa
+      parameters:
+      - description: Student ID atau index
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Data dosen wali
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateAdvisorRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Update dosen wali mahasiswa
+      tags:
+      - Lecturers & Students
+  /users:
+    get:
+      description: Mengambil daftar seluruh user (Admin only)
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Ambil semua user
+      tags:
+      - Users
+    post:
+      consumes:
+      - application/json
+      description: Membuat user beserta profil sesuai role
+      parameters:
+      - description: Create user request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Buat user baru
+      tags:
+      - Users
+  /users/{id}:
+    delete:
+      description: Menghapus user beserta profil terkait
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Hapus user
+      tags:
+      - Users
+    get:
+      description: ID bisa berupa UUID atau index numerik
+      parameters:
+      - description: User ID (UUID atau index)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Ambil user berdasarkan ID
+      tags:
+      - Users
+    put:
+      consumes:
+      - application/json
+      description: Memperbarui data user
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update user request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Update user
+      tags:
+      - Users
+  /users/{id}/role:
+    put:
+      consumes:
+      - application/json
+      description: Mengubah role user dan regenerate profil
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update role request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserRoleUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.MetaInfo'
+      security:
+      - BearerAuth: []
+      summary: Update role user
+      tags:
+      - Users
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
