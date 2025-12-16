@@ -7,9 +7,11 @@ import (
 	"uas/app/repository"
 	"uas/helper"
 	"uas/utils"
+	_ "uas/cmd/docs"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
+	
 )
 
 type AuthService struct {
@@ -20,6 +22,17 @@ func NewAuthService(repo repository.AuthRepository) *AuthService {
 	return &AuthService{repo: repo}
 }
 
+// Register godoc
+// @Summary      Register user baru
+// @Description  Registrasi user baru dengan role default Mahasiswa
+// @Tags         Auth
+// @Accept       json
+// @Produce      json
+// @Param        body  body  models.RegistReq  true  "Register request"
+// @Success      201   {object}  models.MetaInfo
+// @Failure      400   {object}  models.MetaInfo
+// @Failure      500   {object}  models.MetaInfo
+// @Router       /auth/register [post]
 func (s *AuthService) Register(c *fiber.Ctx) error {
 	var req models.RegistReq
 
@@ -57,6 +70,17 @@ func (s *AuthService) Register(c *fiber.Ctx) error {
 	return helper.Created(c, "Registrasi berhasil", nil)
 }
 
+// Login godoc
+// @Summary      Login user
+// @Description  Login menggunakan email dan password
+// @Tags         Auth
+// @Accept       json
+// @Produce      json
+// @Param        body  body  models.LoginReq  true  "Login request"
+// @Success      200   {object}  models.MetaInfo
+// @Failure      401   {object}  models.MetaInfo
+// @Failure      403   {object}  models.MetaInfo
+// @Router       /auth/login [post]
 func (s *AuthService) Login(c *fiber.Ctx) error {
 	var req models.LoginReq
 
@@ -103,6 +127,15 @@ func (s *AuthService) Login(c *fiber.Ctx) error {
 }
 
 
+// Refresh godoc
+// @Summary      Refresh access token
+// @Description  Generate access token baru menggunakan refresh token
+// @Tags         Auth
+// @Security     BearerAuth
+// @Produce      json
+// @Success      200   {object}  models.MetaInfo
+// @Failure      401   {object}  models.MetaInfo
+// @Router       /auth/refresh [post]
 func (s *AuthService) Refresh(c *fiber.Ctx) error {
 	authHeader := c.Get("Authorization")
 	if authHeader == "" || !strings.HasPrefix(authHeader, "Bearer ") {
@@ -141,6 +174,15 @@ func (s *AuthService) Refresh(c *fiber.Ctx) error {
 }
 
 
+// Logout godoc
+// @Summary      Logout user
+// @Description  Logout dan blacklist token
+// @Tags         Auth
+// @Security     BearerAuth
+// @Produce      json
+// @Success      200   {object}  models.MetaInfo
+// @Failure      401   {object}  models.MetaInfo
+// @Router       /auth/logout [post]
 func (s *AuthService) Logout(c *fiber.Ctx) error {
 	authHeader := c.Get("Authorization")
 	if authHeader == "" {
@@ -153,7 +195,15 @@ func (s *AuthService) Logout(c *fiber.Ctx) error {
 	return helper.Success(c, "Logout berhasil", nil)
 }
 
-
+// Profile godoc
+// @Summary      Ambil profil user
+// @Description  Mengambil data user yang sedang login
+// @Tags         Auth
+// @Security     BearerAuth
+// @Produce      json
+// @Success      200   {object}  models.MetaInfo
+// @Failure      401   {object}  models.MetaInfo
+// @Router       /auth/profile [get]
 func (s *AuthService) Profile(c *fiber.Ctx) error {
 	userID := c.Locals("user_id").(string)
 

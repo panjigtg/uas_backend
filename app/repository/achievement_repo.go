@@ -35,17 +35,23 @@ func (r *achievementMongoRepository) Create(ctx context.Context, a *models.Achie
 }
 
 func (r *achievementMongoRepository) FindByID(ctx context.Context, id string) (*models.AchievementMongo, error) {
-    objID, _ := primitive.ObjectIDFromHex(id)
+	objID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return nil, err
+	}
 
-    var out models.AchievementMongo
-    if err := r.col.FindOne(ctx, bson.M{
-        "_id": objID,
-        "isDeleted": bson.M{"$ne": true},
-        }).Decode(&out); err != nil {
-        return nil, err
-    }
-    return &out, nil
+	var out models.AchievementMongo
+	err = r.col.FindOne(ctx, bson.M{
+		"_id":       objID,
+		"isDeleted": bson.M{"$ne": true},
+	}).Decode(&out)
+
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
 }
+
 
 func (r *achievementMongoRepository) SoftDelete(ctx context.Context, id string) error {
     oid, _ := primitive.ObjectIDFromHex(id)

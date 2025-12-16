@@ -10,12 +10,17 @@ import (
 
 type AchievementReferenceRepository interface {
 	Create(ctx context.Context, ref *models.AchievementReference) error
+    GetByMongoID(ctx context.Context, mongoID string) (*models.AchievementReference, error)
+    Update(ctx context.Context, ref *models.AchievementReference) error
+
 	FindByStudentID(ctx context.Context, studentID string) ([]models.AchievementReference, error)
 	FindAll(ctx context.Context) ([]models.AchievementReference, error)
-	GetByMongoID(ctx context.Context, mongoID string) (*models.AchievementReference, error)
-    Update(ctx context.Context, ref *models.AchievementReference) error
 	FindByStudentIDs(ctx context.Context, ids []string) ([]models.AchievementReference, error)
     FindForAdvisor(ctx context.Context, ids []string) ([]models.AchievementReference, error)
+
+    FindAllPaginated(ctx context.Context, limit, offset int) ([]models.AchievementReference, int, error)
+	FindByStudentIDPaginated(ctx context.Context, studentID string, limit, offset int) ([]models.AchievementReference, int, error)
+	FindForAdvisorPaginated(ctx context.Context, ids []string, limit, offset int) ([]models.AchievementReference, int, error)
 }
 
 type achievementReferenceRepository struct {
@@ -24,6 +29,25 @@ type achievementReferenceRepository struct {
 
 func NewAchievementReferenceRepository(db *sql.DB) AchievementReferenceRepository {
     return &achievementReferenceRepository{db: db}
+}
+
+func scanAchievementRef(rows *sql.Rows) (models.AchievementReference, error) {
+	var ref models.AchievementReference
+	err := rows.Scan(
+		&ref.ID,
+		&ref.StudentID,
+		&ref.MongoAchievementID,
+		&ref.Status,
+		&ref.SubmittedAt,
+		&ref.VerifiedAt,
+		&ref.VerifiedBy,
+		&ref.RejectionNote,
+		&ref.CreatedAt,
+		&ref.UpdatedAt,
+		&ref.StudentCode,
+		&ref.StudentName,
+	)
+	return ref, err
 }
 
 func (r *achievementReferenceRepository) Create(ctx context.Context, ref *models.AchievementReference) error {
@@ -285,4 +309,153 @@ func (r *achievementReferenceRepository) FindForAdvisor(ctx context.Context, ids
         refs = append(refs, ref)
     }
     return refs, nil
+}
+
+
+func (r *achievementReferenceRepository) FindAllPaginated(
+	ctx context.Context,
+	limit, offset int,
+) ([]models.AchievementReference, int, error) {
+
+	countQuery := `SELECT COUNT(*) FROM achievement_references WHERE status != 'deleted'`
+	var total int
+	if err := r.db.QueryRowContext(ctx, countQuery).Scan(&total); err != nil {
+		return nil, 0, err
+	}
+
+	query := `
+		SELECT 
+			ar.id, ar.student_id, ar.mongo_achievement_id, ar.status,
+			ar.submitted_at, ar.verified_at, ar.verified_by, ar.rejection_note,
+			ar.created_at, ar.updated_at,
+			s.student_id AS student_code,
+			u.full_name  AS student_name
+		FROM achievement_references ar
+		JOIN students s ON s.id = ar.student_id
+		JOIN users u    ON u.id = s.user_id
+		WHERE ar.status != 'deleted'
+		ORDER BY ar.updated_at DESC
+		LIMIT $1 OFFSET $2
+	`
+
+	rows, err := r.db.QueryContext(ctx, query, limit, offset)
+	if err != nil {
+		return nil, 0, err
+	}
+	defer rows.Close()
+
+	var refs []models.AchievementReference
+	for rows.Next() {
+		ref, err := scanAchievementRef(rows)
+		if err != nil {
+			return nil, 0, err
+		}
+		refs = append(refs, ref)
+	}
+
+	return refs, total, nil
+}
+
+
+func (r *achievementReferenceRepository) FindByStudentIDPaginated(
+	ctx context.Context,
+	studentID string,
+	limit, offset int,
+) ([]models.AchievementReference, int, error) {
+
+	countQuery := `
+		SELECT COUNT(*)
+		FROM achievement_references
+		WHERE student_id = $1 AND status != 'deleted'
+	`
+
+	var total int
+	if err := r.db.QueryRowContext(ctx, countQuery, studentID).Scan(&total); err != nil {
+		return nil, 0, err
+	}
+
+	query := `
+		SELECT 
+			ar.id, ar.student_id, ar.mongo_achievement_id, ar.status,
+			ar.submitted_at, ar.verified_at, ar.verified_by, ar.rejection_note,
+			ar.created_at, ar.updated_at,
+			s.student_id AS student_code,
+			u.full_name  AS student_name
+		FROM achievement_references ar
+		JOIN students s ON s.id = ar.student_id
+		JOIN users u    ON u.id = s.user_id
+		WHERE ar.student_id = $1
+		  AND ar.status != 'deleted'
+		ORDER BY ar.updated_at DESC
+		LIMIT $2 OFFSET $3
+	`
+
+	rows, err := r.db.QueryContext(ctx, query, studentID, limit, offset)
+	if err != nil {
+		return nil, 0, err
+	}
+	defer rows.Close()
+
+	var refs []models.AchievementReference
+	for rows.Next() {
+		ref, err := scanAchievementRef(rows)
+		if err != nil {
+			return nil, 0, err
+		}
+		refs = append(refs, ref)
+	}
+
+	return refs, total, nil
+}
+
+func (r *achievementReferenceRepository) FindForAdvisorPaginated(
+	ctx context.Context,
+	ids []string,
+	limit, offset int,
+) ([]models.AchievementReference, int, error) {
+
+	countQuery := `
+		SELECT COUNT(*)
+		FROM achievement_references
+		WHERE student_id = ANY($1)
+		  AND status = 'submitted'
+	`
+
+	var total int
+	if err := r.db.QueryRowContext(ctx, countQuery, pq.Array(ids)).Scan(&total); err != nil {
+		return nil, 0, err
+	}
+
+	query := `
+		SELECT 
+			ar.id, ar.student_id, ar.mongo_achievement_id, ar.status,
+			ar.submitted_at, ar.verified_at, ar.verified_by, ar.rejection_note,
+			ar.created_at, ar.updated_at,
+			s.student_id AS student_code,
+			u.full_name  AS student_name
+		FROM achievement_references ar
+		JOIN students s ON s.id = ar.student_id
+		JOIN users u    ON u.id = s.user_id
+		WHERE ar.student_id = ANY($1)
+		  AND ar.status = 'submitted'
+		ORDER BY ar.submitted_at DESC
+		LIMIT $2 OFFSET $3
+	`
+
+	rows, err := r.db.QueryContext(ctx, query, pq.Array(ids), limit, offset)
+	if err != nil {
+		return nil, 0, err
+	}
+	defer rows.Close()
+
+	var refs []models.AchievementReference
+	for rows.Next() {
+		ref, err := scanAchievementRef(rows)
+		if err != nil {
+			return nil, 0, err
+		}
+		refs = append(refs, ref)
+	}
+
+	return refs, total, nil
 }

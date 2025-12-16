@@ -17,6 +17,8 @@ func Bootstrap() *fiber.App {
 		UserService: container.UserService,
 		StudentService: container.StudentService,
 		AchievementService: container.AchievementService,
+		LecturerService: container.LecturerService,
+		ReportService: container.ReportService,
 	})
 
 	return app

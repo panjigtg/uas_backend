@@ -12,11 +12,11 @@ import (
 )
 
 type AchievementService struct {
-	StudentRepo   	repository.StudentRepository
-	MongoRepo 		repository.AchievementMongoRepository
-	PgRepo    		repository.AchievementReferenceRepository
-	lecturerRepo	repository.LecturerRepository
-	UserRepo    	repository.UserRepository
+	StudentRepo  repository.StudentRepository
+	MongoRepo    repository.AchievementMongoRepository
+	PgRepo       repository.AchievementReferenceRepository
+	lecturerRepo repository.LecturerRepository
+	UserRepo     repository.UserRepository
 }
 
 func NewAchievementService(
@@ -27,34 +27,68 @@ func NewAchievementService(
 	usrRepo repository.UserRepository,
 ) *AchievementService {
 	return &AchievementService{
-		StudentRepo: stdRepo,
-		MongoRepo: mongoRepo,
-		PgRepo:    pgRepo,
+		StudentRepo:  stdRepo,
+		MongoRepo:    mongoRepo,
+		PgRepo:       pgRepo,
 		lecturerRepo: lecturerRepo,
-		UserRepo: usrRepo,
+		UserRepo:     usrRepo,
 	}
 }
 
+// List achievements
+// @Summary      List prestasi
+// @Description  Mengambil daftar prestasi sesuai hak akses user
+// @Tags         Achievements
+// @Security     BearerAuth
+// @Param        page   query int false "Page number"
+// @Param        limit  query int false "Limit per page"
+// @Success      200 {object} models.MetaInfo
+// @Failure      401 {object} models.MetaInfo
+// @Failure      403 {object} models.MetaInfo
+// @Router       /achievements [get]
 func (s *AchievementService) List(c *fiber.Ctx) error {
 	role := c.Locals("role_id").(string)
 	userID := c.Locals("user_id").(string)
 
-	var refs []models.AchievementReference
-	var err error
-	var emptyMessage string
+	page := c.QueryInt("page", 1)
+	limit := c.QueryInt("limit", 10)
+	if page < 1 {
+		page = 1
+	}
+	if limit < 1 {
+		limit = 10
+	}
+	offset := (page - 1) * limit
+
+	var (
+		refs         []models.AchievementReference
+		total        int
+		err          error
+		emptyMessage string
+	)
 
 	switch role {
 
 	case "Mahasiswa":
-		student, _ := s.StudentRepo.GetByUserID(c.Context(), userID)
-		if student == nil {
+		student, err := s.StudentRepo.GetByUserID(c.Context(), userID)
+		if err != nil || student == nil {
 			return helper.BadRequest(c, "Mahasiswa tidak ditemukan", nil)
 		}
-		refs, err = s.PgRepo.FindByStudentID(c.Context(), student.ID)
+
+		refs, total, err = s.PgRepo.FindByStudentIDPaginated(
+			c.Context(),
+			student.ID,
+			limit,
+			offset,
+		)
 		emptyMessage = "Belum ada prestasi"
 
 	case "Admin":
-		refs, err = s.PgRepo.FindAll(c.Context())
+		refs, total, err = s.PgRepo.FindAllPaginated(
+			c.Context(),
+			limit,
+			offset,
+		)
 		emptyMessage = "Belum ada prestasi"
 
 	case "Dosen Wali":
@@ -65,21 +99,29 @@ func (s *AchievementService) List(c *fiber.Ctx) error {
 
 		advisees, err := s.StudentRepo.FindByAdvisorID(c.Context(), lecturer.ID)
 		if err != nil {
-			return helper.InternalServerError(c, "Gagal mengambil data bimbingan")
+			return helper.InternalServerError(c, "Gagal mengambil data mahasiswa bimbingan")
 		}
 
 		if len(advisees) == 0 {
-			return helper.Success(c, "Belum ada prestasi mahasiswa bimbingan", []fiber.Map{})
+			return helper.Success(
+				c,
+				"Belum ada prestasi mahasiswa bimbingan",
+				[]fiber.Map{},
+			)
 		}
 
-		var studentIDs []string
+		studentIDs := make([]string, 0, len(advisees))
 		for _, st := range advisees {
 			studentIDs = append(studentIDs, st.ID)
 		}
 
-		// Panggil repo khusus untuk Dosen Wali → hanya status submitted
-		refs, err = s.PgRepo.FindForAdvisor(c.Context(), studentIDs)
-		emptyMessage = "Belum ada prestasi yang submit"
+		refs, total, err = s.PgRepo.FindForAdvisorPaginated(
+			c.Context(),
+			studentIDs,
+			limit,
+			offset,
+		)
+		emptyMessage = "Belum ada prestasi yang disubmit"
 
 	default:
 		return helper.Forbidden(c, "Role tidak memiliki akses")
@@ -89,7 +131,12 @@ func (s *AchievementService) List(c *fiber.Ctx) error {
 		return helper.InternalServerError(c, "Gagal mengambil data prestasi")
 	}
 
-	list := make([]fiber.Map, 0)
+	if len(refs) == 0 {
+		return helper.Success(c, emptyMessage, []fiber.Map{})
+	}
+
+	list := make([]fiber.Map, 0, len(refs))
+
 	for _, ref := range refs {
 		ach, err := s.MongoRepo.FindByID(c.Context(), ref.MongoAchievementID)
 		if err != nil || ach == nil {
@@ -121,15 +168,25 @@ func (s *AchievementService) List(c *fiber.Ctx) error {
 		})
 	}
 
-	if len(list) == 0 {
-		return helper.Success(c, emptyMessage, []fiber.Map{})
+	meta := models.PaginationMeta{
+		Page:      page,
+		Limit:     limit,
+		TotalData:     total,
+		TotalPages: (total + limit - 1) / limit,
 	}
 
-	return helper.Success(c, "Daftar prestasi ditemukan", list)
+	return helper.Paginated(c, "Daftar prestasi ditemukan", list, meta)
 }
 
-
-
+// Get achievement detail
+// @Summary      Detail prestasi
+// @Description  Mengambil detail prestasi berdasarkan ID
+// @Tags         Achievements
+// @Security     BearerAuth
+// @Param        id   path string true "Achievement ID"
+// @Success      200 {object} models.MetaInfo
+// @Failure      404 {object} models.MetaInfo
+// @Router       /achievements/{id} [get]
 func (s *AchievementService) Detail(c *fiber.Ctx) error {
 	mongoID := c.Params("id")
 
@@ -177,7 +234,17 @@ func (s *AchievementService) Detail(c *fiber.Ctx) error {
 	})
 }
 
-
+// Create achievement
+// @Summary      Buat prestasi
+// @Description  Membuat data prestasi baru
+// @Tags         Achievements
+// @Security     BearerAuth
+// @Accept       json
+// @Produce      json
+// @Param        body body models.AchievementCreateInput true "Payload prestasi"
+// @Success      201 {object} models.MetaInfo
+// @Failure      400 {object} models.MetaInfo
+// @Router       /achievements [post]
 func (s *AchievementService) Create(c *fiber.Ctx) error {
 	userID := c.Locals("user_id").(string)
 
@@ -245,7 +312,15 @@ func (s *AchievementService) Create(c *fiber.Ctx) error {
 	})
 }
 
-
+// Submit achievement
+// @Summary      Submit prestasi
+// @Description  Mengirim prestasi untuk diverifikasi
+// @Tags         Achievements
+// @Security     BearerAuth
+// @Param        id path string true "Achievement ID"
+// @Success      200 {object} models.MetaInfo
+// @Failure      400 {object} models.MetaInfo
+// @Router       /achievements/{id}/submit [post]
 func (s *AchievementService) Submit(c *fiber.Ctx) error {
 	userID, _ := c.Locals("user_id").(string)
 	mongoID := c.Params("id")
@@ -282,6 +357,15 @@ func (s *AchievementService) Submit(c *fiber.Ctx) error {
 	})
 }
 
+// Delete achievement
+// @Summary      Hapus prestasi
+// @Description  Menghapus prestasi draft
+// @Tags         Achievements
+// @Security     BearerAuth
+// @Param        id path string true "Achievement ID"
+// @Success      200 {object} models.MetaInfo
+// @Failure      403 {object} models.MetaInfo
+// @Router       /achievements/{id} [delete]
 func (s *AchievementService) Delete(c *fiber.Ctx) error {
 	userID, _ := c.Locals("user_id").(string)
 	mongoID := c.Params("id")
@@ -318,128 +402,165 @@ func (s *AchievementService) Delete(c *fiber.Ctx) error {
 	return helper.Success(c, "Prestasi draft berhasil dihapus", nil)
 }
 
+// Verify achievement
+// @Summary      Verifikasi prestasi
+// @Description  Menerima dan memverifikasi prestasi
+// @Tags         Achievements
+// @Security     BearerAuth
+// @Param        id path string true "Achievement ID"
+// @Success      200 {object} models.MetaInfo
+// @Failure      400 {object} models.MetaInfo
+// @Router       /achievements/{id}/verify [post]
 func (s *AchievementService) Verify(c *fiber.Ctx) error {
-    id := c.Params("id")
-    advisorID := c.Locals("user_id").(string)
+	id := c.Params("id")
+	advisorID := c.Locals("user_id").(string)
 
-    ref, err := s.PgRepo.GetByMongoID(c.Context(), id)
-    if err != nil || ref == nil {
-        return helper.NotFound(c, "Prestasi tidak ditemukan")
-    }
+	ref, err := s.PgRepo.GetByMongoID(c.Context(), id)
+	if err != nil || ref == nil {
+		return helper.NotFound(c, "Prestasi tidak ditemukan")
+	}
 
-    if ref.Status != utils.AchievementStatusSubmitted {
-        return helper.BadRequest(c, "Prestasi belum dikirim atau sudah diverifikasi", nil)
-    }
+	if ref.Status != utils.AchievementStatusSubmitted {
+		return helper.BadRequest(c, "Prestasi belum dikirim atau sudah diverifikasi", nil)
+	}
 
-    now := time.Now()
-    ref.Status = utils.AchievementStatusVerified
-    ref.VerifiedAt = &now
-    ref.VerifiedBy = &advisorID
+	now := time.Now()
+	ref.Status = utils.AchievementStatusVerified
+	ref.VerifiedAt = &now
+	ref.VerifiedBy = &advisorID
 
-    if err := s.PgRepo.Update(c.Context(), ref); err != nil {
-        return helper.InternalServerError(c, "Gagal memverifikasi prestasi")
-    }
+	if err := s.PgRepo.Update(c.Context(), ref); err != nil {
+		return helper.InternalServerError(c, "Gagal memverifikasi prestasi")
+	}
 
-    return helper.Success(c, "Prestasi berhasil diverifikasi", fiber.Map{
-        "status":       ref.Status,
-        "verified_at":  ref.VerifiedAt,
-        "verified_by":  ref.VerifiedBy,
-    })
+	return helper.Success(c, "Prestasi berhasil diverifikasi", fiber.Map{
+		"status":      ref.Status,
+		"verified_at": ref.VerifiedAt,
+		"verified_by": ref.VerifiedBy,
+	})
 }
 
+// Reject achievement
+// @Summary      Tolak prestasi
+// @Description  Menolak prestasi dengan catatan
+// @Tags         Achievements
+// @Security     BearerAuth
+// @Accept       json
+// @Param        id   path string true "Achievement ID"
+// @Param        body body object true "Catatan penolakan"
+// @Success      200 {object} models.MetaInfo
+// @Router       /achievements/{id}/reject [post]
 func (s *AchievementService) Reject(c *fiber.Ctx) error {
-    id := c.Params("id")                           
-    advisorID := c.Locals("user_id").(string)      
+	id := c.Params("id")
+	advisorID := c.Locals("user_id").(string)
 
-    var body struct {
-        Note string `json:"note"`
-    }
-    if err := c.BodyParser(&body); err != nil {
-        return helper.BadRequest(c, "Format request salah", nil)
-    }
+	var body struct {
+		Note string `json:"note"`
+	}
+	if err := c.BodyParser(&body); err != nil {
+		return helper.BadRequest(c, "Format request salah", nil)
+	}
 
-    ref, err := s.PgRepo.GetByMongoID(c.Context(), id)
-    if err != nil || ref == nil {
-        return helper.NotFound(c, "Prestasi tidak ditemukan")
-    }
+	ref, err := s.PgRepo.GetByMongoID(c.Context(), id)
+	if err != nil || ref == nil {
+		return helper.NotFound(c, "Prestasi tidak ditemukan")
+	}
 
-    if ref.Status != utils.AchievementStatusSubmitted {
-        return helper.BadRequest(c, "Prestasi belum dikirim atau sudah diproses", nil)
-    }
+	if ref.Status != utils.AchievementStatusSubmitted {
+		return helper.BadRequest(c, "Prestasi belum dikirim atau sudah diproses", nil)
+	}
 
-    student, err := s.StudentRepo.FindByID(c.Context(), ref.StudentID)
-    if err != nil || student == nil {
-        return helper.NotFound(c, "Mahasiswa tidak ditemukan")
-    }
+	student, err := s.StudentRepo.FindByID(c.Context(), ref.StudentID)
+	if err != nil || student == nil {
+		return helper.NotFound(c, "Mahasiswa tidak ditemukan")
+	}
 
-    // if student.AdvisorID == nil || *student.AdvisorID != advisorID {
-    //     return helper.Forbidden(c, "Anda bukan dosen wali mahasiswa ini")
-    // }
+	// if student.AdvisorID == nil || *student.AdvisorID != advisorID {
+	//     return helper.Forbidden(c, "Anda bukan dosen wali mahasiswa ini")
+	// }
 
-    now := time.Now()
-    ref.Status = utils.AchievementStatusRejected
-    ref.RejectionNote = &body.Note
-    ref.VerifiedAt = &now
-    ref.VerifiedBy = &advisorID
+	now := time.Now()
+	ref.Status = utils.AchievementStatusRejected
+	ref.RejectionNote = &body.Note
+	ref.VerifiedAt = &now
+	ref.VerifiedBy = &advisorID
 
-    // Simpan ke database
-    if err := s.PgRepo.Update(c.Context(), ref); err != nil {
-        return helper.InternalServerError(c, "Gagal menolak prestasi")
-    }
+	// Simpan ke database
+	if err := s.PgRepo.Update(c.Context(), ref); err != nil {
+		return helper.InternalServerError(c, "Gagal menolak prestasi")
+	}
 
-    // Response
-    return helper.Success(c, "Prestasi berhasil ditolak", fiber.Map{
-        "status":         ref.Status,
-        "rejection_note": ref.RejectionNote,
-        "rejected_at":    ref.VerifiedAt,
-        "rejected_by":    ref.VerifiedBy,
-    })
+	// Response
+	return helper.Success(c, "Prestasi berhasil ditolak", fiber.Map{
+		"status":         ref.Status,
+		"rejection_note": ref.RejectionNote,
+		"rejected_at":    ref.VerifiedAt,
+		"rejected_by":    ref.VerifiedBy,
+	})
 }
 
+// Upload achievement attachments
+// @Summary      Upload lampiran
+// @Description  Upload file prestasi
+// @Tags         Achievements
+// @Security     BearerAuth
+// @Accept       multipart/form-data
+// @Param        id    path string true "Achievement ID"
+// @Param        files formData file true "Files"
+// @Success      200 {object} models.MetaInfo
+// @Router       /achievements/{id}/attachments [post]
 func (s *AchievementService) UploadAttachments(c *fiber.Ctx) error {
-    id := c.Params("id") 
+	id := c.Params("id")
 
-    ach, err := s.MongoRepo.FindByID(c.Context(), id)
-    if err != nil || ach == nil {
-        return helper.NotFound(c, "Prestasi tidak ditemukan")
-    }
+	ach, err := s.MongoRepo.FindByID(c.Context(), id)
+	if err != nil || ach == nil {
+		return helper.NotFound(c, "Prestasi tidak ditemukan")
+	}
 
-    form, err := c.MultipartForm()
-    if err != nil {
-        return helper.BadRequest(c, "Gagal membaca form file", nil)
-    }
+	form, err := c.MultipartForm()
+	if err != nil {
+		return helper.BadRequest(c, "Gagal membaca form file", nil)
+	}
 
-    files := form.File["files"]
-    if len(files) == 0 {
-        return helper.BadRequest(c, "Tidak ada file yang diupload", nil)
-    }
+	files := form.File["files"]
+	if len(files) == 0 {
+		return helper.BadRequest(c, "Tidak ada file yang diupload", nil)
+	}
 
-    uploaded := make([]models.AchievementFile, 0)
+	uploaded := make([]models.AchievementFile, 0)
 
-    for _, file := range files {
-        savePath := "./uploads/achievements" + file.Filename
-        if err := c.SaveFile(file, savePath); err != nil {
-            return helper.InternalServerError(c, "Gagal menyimpan file")
-        }
+	for _, file := range files {
+		savePath := "./uploads/achievements" + file.Filename
+		if err := c.SaveFile(file, savePath); err != nil {
+			return helper.InternalServerError(c, "Gagal menyimpan file")
+		}
 
-        uploadedFile := models.AchievementFile{
-            FileName:   file.Filename,
-            FileURL:    savePath,
-            FileType:   file.Header.Get("Content-Type"),
-            UploadedAt: time.Now(),
-        }
-        uploaded = append(uploaded, uploadedFile)
-    }
+		uploadedFile := models.AchievementFile{
+			FileName:   file.Filename,
+			FileURL:    savePath,
+			FileType:   file.Header.Get("Content-Type"),
+			UploadedAt: time.Now(),
+		}
+		uploaded = append(uploaded, uploadedFile)
+	}
 
-    ach.Attachments = append(ach.Attachments, uploaded...)
+	ach.Attachments = append(ach.Attachments, uploaded...)
 
-    if err := s.MongoRepo.Update(c.Context(), ach); err != nil {
-        return helper.InternalServerError(c, "Gagal menambahkan attachment")
-    }
+	if err := s.MongoRepo.Update(c.Context(), ach); err != nil {
+		return helper.InternalServerError(c, "Gagal menambahkan attachment")
+	}
 
-    return helper.Success(c, "Attachment berhasil diupload", uploaded)
+	return helper.Success(c, "Attachment berhasil diupload", uploaded)
 }
 
+// Achievement history
+// @Summary      Riwayat prestasi
+// @Description  Mengambil history status prestasi
+// @Tags         Achievements
+// @Security     BearerAuth
+// @Param        id path string true "Achievement ID"
+// @Success      200 {object} models.MetaInfo
+// @Router       /achievements/{id}/history [get]
 func (s *AchievementService) History(c *fiber.Ctx) error {
 	id := c.Params("id")
 
@@ -483,4 +604,75 @@ func (s *AchievementService) History(c *fiber.Ctx) error {
 	}
 
 	return helper.Success(c, "History prestasi ditemukan", history)
+}
+
+// Update achievement
+// @Summary      Update prestasi
+// @Description  Update data prestasi (hanya status draft)
+// @Tags         Achievements
+// @Security     BearerAuth
+// @Accept       json
+// @Produce      json
+// @Param        id   path string true "Achievement ID"
+// @Param        body body models.AchievementCreateInput true "Payload update prestasi"
+// @Success      200 {object} models.MetaInfo
+// @Failure      400 {object} models.MetaInfo
+// @Failure      403 {object} models.MetaInfo
+// @Router       /achievements/{id} [put]
+func (s *AchievementService) Update(c *fiber.Ctx) error {
+	userID := c.Locals("user_id").(string)
+	mongoID := c.Params("id")
+
+	ref, err := s.PgRepo.GetByMongoID(c.Context(), mongoID)
+	if err != nil || ref == nil {
+		return helper.NotFound(c, "Prestasi tidak ditemukan")
+	}
+
+	// hanya owner
+	student, err := s.StudentRepo.GetByUserID(c.Context(), userID)
+	if err != nil || student == nil {
+		return helper.BadRequest(c, "Mahasiswa tidak ditemukan", nil)
+	}
+	if ref.StudentID != student.ID {
+		return helper.Forbidden(c, "Tidak dapat mengubah prestasi milik orang lain")
+	}
+
+	// hanya draft
+	if ref.Status != utils.AchievementStatusDraft {
+		return helper.BadRequest(c, "Prestasi hanya bisa diubah saat draft", nil)
+	}
+
+	var input models.AchievementCreateInput
+	if err := c.BodyParser(&input); err != nil {
+		return helper.BadRequest(c, "Format request tidak valid", nil)
+	}
+
+	ach, err := s.MongoRepo.FindByID(c.Context(), mongoID)
+	if err != nil || ach == nil {
+		return helper.NotFound(c, "Data prestasi tidak ditemukan")
+	}
+
+	// sanitize & filter details
+	sanitized := utils.SanitizeMongoMap(input.Details)
+	filtered := utils.FilterDetails(input.AchievementType, sanitized)
+
+	ach.Title = input.Title
+	ach.Description = input.Description
+	ach.AchievementType = input.AchievementType
+	ach.Details = filtered
+	ach.Tags = input.Tags
+	ach.UpdatedAt = time.Now()
+
+	if err := s.MongoRepo.Update(c.Context(), ach); err != nil {
+		return helper.InternalServerError(c, "Gagal update prestasi")
+	}
+
+	ref.UpdatedAt = time.Now()
+	if err := s.PgRepo.Update(c.Context(), ref); err != nil {
+		return helper.InternalServerError(c, "Gagal update reference prestasi")
+	}
+
+	return helper.Success(c, "Prestasi berhasil diperbarui", fiber.Map{
+		"id": mongoID,
+	})
 }

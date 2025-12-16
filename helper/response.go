@@ -120,10 +120,10 @@ func Paginated(c *fiber.Ctx, message string, data interface{}, meta models.Pagin
 	response := models.MetaInfo{
 		Status: "success",
 		Message: message,
-		Data: data,
 		Meta: meta,
+		Data: data,
 	}
 
 	logResponse(c, fiber.StatusOK, response)
 	return c.Status(fiber.StatusOK).JSON(response)
-}
+}	

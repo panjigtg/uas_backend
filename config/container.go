@@ -14,6 +14,8 @@ type Container struct {
 	UserService 		*services.UserService
 	StudentService 		*services.StudentService
 	AchievementService	*services.AchievementService
+	LecturerService 	*services.LecturerService
+	ReportService 		*services.ReportService
 }
 
 // Dependency Injection Container
@@ -50,11 +52,23 @@ func BuildContainer(db *sql.DB, mongoDB *mgodriver.Database) *Container {
 		userRepo,
 	)
 
+	lecturerService := services.NewLecturerService(
+		lecturerRepo,
+		studentRepo,
+	)
+
+	reportService := services.NewReportService(
+		achievementRefRepo,
+		achievementMongoRepo,
+	)
+
 
 	return &Container{
 		AuthService: authService,
 		UserService: userService,
 		StudentService:  studentService,
 		AchievementService: achievementService,
+		LecturerService: lecturerService,
+		ReportService: reportService,
 	}
 }

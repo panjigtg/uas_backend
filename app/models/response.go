@@ -3,9 +3,9 @@ package models
 type MetaInfo struct {
 	Status 		string 		`json:"status"`
 	Message 	string 		`json:"message"`
+	Meta 		interface{} `json:"meta,omitempty"`
 	Data 		interface{} `json:"data,omitempty"`
 	Errors 		interface{} `json:"errors,omitempty"`
-	Meta 		interface{} `json:"meta,omitempty"`
 }
 
 type PaginationMeta struct {

@@ -12,6 +12,7 @@ type LecturerRepository interface {
     DeleteByUserID(tx *sql.Tx, userID string) error
     GetIDByUserID(userID string) (string, error)
 	GetByUserID(ctx context.Context, userID string) (*models.Lecturer, error)
+    FindAll(ctx context.Context) ([]models.Lecturer, error)
 }
 
 
@@ -74,3 +75,35 @@ func (r *lecturerRepository) GetByUserID(ctx context.Context, userID string) (*m
 
     return lec, err
 }
+
+func (r *lecturerRepository) FindAll(ctx context.Context) ([]models.Lecturer, error) {
+	query := `
+		SELECT id, user_id, lecturer_id, department, created_at
+		FROM lecturers
+		ORDER BY created_at ASC
+	`
+
+	rows, err := r.DB.QueryContext(ctx, query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var list []models.Lecturer
+	for rows.Next() {
+		var l models.Lecturer
+		if err := rows.Scan(
+			&l.ID,
+			&l.UserID,
+			&l.LecturerID,
+			&l.Department,
+			&l.CreatedAt,
+		); err != nil {
+			return nil, err
+		}
+		list = append(list, l)
+	}
+
+	return list, nil
+}
+

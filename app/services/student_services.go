@@ -48,6 +48,17 @@ func (s *StudentService) resolveStudentID(id string) (string, error) {
     return "", fiber.NewError(fiber.StatusBadRequest, "Format ID mahasiswa tidak valid")
 }
 
+// GetAll
+// @Summary      Ambil semua mahasiswa
+// @Description  Menampilkan daftar seluruh mahasiswa
+// @Tags         Lecturers & Students
+// @Security     BearerAuth
+// @Produce      json
+// @Success      200 {object} models.MetaInfo
+// @Failure      401 {object} models.MetaInfo
+// @Failure      403 {object} models.MetaInfo
+// @Failure      500 {object} models.MetaInfo
+// @Router       /students [get]
 func (s *StudentService) GetAll(c *fiber.Ctx) error {
     list, err := s.studentRepo.FindAll(c.Context())
     if err != nil {
@@ -57,7 +68,19 @@ func (s *StudentService) GetAll(c *fiber.Ctx) error {
     return helper.Success(c, "Daftar mahasiswa ditemukan", list)
 }
 
-
+// GetByID
+// @Summary      Detail mahasiswa
+// @Description  Menampilkan detail mahasiswa berdasarkan ID atau index
+// @Tags         Lecturers & Students
+// @Security     BearerAuth
+// @Produce      json
+// @Param        id   path string true "Student ID atau index"
+// @Success      200 {object} models.MetaInfo
+// @Failure      401 {object} models.MetaInfo
+// @Failure      403 {object} models.MetaInfo
+// @Failure      404 {object} models.MetaInfo
+// @Failure      500 {object} models.MetaInfo
+// @Router       /students/{id} [get]
 func (s *StudentService) GetByID(c *fiber.Ctx) error {
     idParam := c.Params("id")
 
@@ -74,7 +97,22 @@ func (s *StudentService) GetByID(c *fiber.Ctx) error {
     return helper.Success(c, "Data mahasiswa ditemukan", student)
 }
 
-
+// UpdateAdvisor
+// @Summary      Update dosen wali mahasiswa
+// @Description  Menetapkan atau menghapus dosen wali mahasiswa
+// @Tags         Lecturers & Students
+// @Security     BearerAuth
+// @Accept       json
+// @Produce      json
+// @Param        id    path string true "Student ID atau index"
+// @Param        body  body models.UpdateAdvisorRequest true "Data dosen wali"
+// @Success      200 {object} models.MetaInfo
+// @Failure      400 {object} models.MetaInfo
+// @Failure      401 {object} models.MetaInfo
+// @Failure      403 {object} models.MetaInfo
+// @Failure      404 {object} models.MetaInfo
+// @Failure      500 {object} models.MetaInfo
+// @Router       /students/{id}/advisor [put]
 func (s *StudentService) UpdateAdvisor(c *fiber.Ctx) error {
     idParam := c.Params("id")
 
@@ -130,6 +168,19 @@ func (s *StudentService) UpdateAdvisor(c *fiber.Ctx) error {
     })
 }
 
+// GetAchievements
+// @Summary      Daftar prestasi mahasiswa
+// @Description  Menampilkan daftar prestasi milik mahasiswa
+// @Tags         Lecturers & Students
+// @Security     BearerAuth
+// @Produce      json
+// @Param        id   path string true "Student ID atau index"
+// @Success      200 {object} models.MetaInfo
+// @Failure      401 {object} models.MetaInfo
+// @Failure      403 {object} models.MetaInfo
+// @Failure      404 {object} models.MetaInfo
+// @Failure      500 {object} models.MetaInfo
+// @Router       /students/{id}/achievements [get]
 func (s *StudentService) GetAchievements(c *fiber.Ctx) error {
 	idParam := c.Params("id")
 

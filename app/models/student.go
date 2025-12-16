@@ -15,3 +15,18 @@ type Student struct {
 type UpdateAdvisorRequest struct {
     AdvisorID *string `json:"advisor_id"`
 }
+
+type StudentStat struct {
+    StudentID   string `json:"student_id"`
+    StudentName string `json:"student_name"`
+    Total       int    `json:"total"`
+    Draft       int    `json:"draft"`
+    Submitted   int    `json:"submitted"`
+    Verified    int    `json:"verified"`
+    Rejected    int    `json:"rejected"`
+}
+
+type Item struct {
+    Reference   any `json:"reference"`
+    Achievement any `json:"achievement"`
+}

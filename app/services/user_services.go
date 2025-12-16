@@ -53,7 +53,16 @@ func (s *UserService) resolveID(id string) (string, error) {
     return "", fiber.NewError(fiber.StatusBadRequest, "Format ID tidak valid")
 }
 
-
+// GetAll godoc
+// @Summary      Ambil semua user
+// @Description  Mengambil daftar seluruh user (Admin only)
+// @Tags         Users
+// @Security     BearerAuth
+// @Produce      json
+// @Success      200 {object} models.MetaInfo
+// @Failure      401 {object} models.MetaInfo
+// @Failure      403 {object} models.MetaInfo
+// @Router       /users [get]
 func (s *UserService) GetAll(c *fiber.Ctx) error {
 	users, err := s.userRepo.GetAll()
 	if err != nil {
@@ -63,6 +72,17 @@ func (s *UserService) GetAll(c *fiber.Ctx) error {
 	return helper.Success(c, "Daftar user berhasil diambil", users)
 }
 
+// GetByID godoc
+// @Summary      Ambil user berdasarkan ID
+// @Description  ID bisa berupa UUID atau index numerik
+// @Tags         Users
+// @Security     BearerAuth
+// @Produce      json
+// @Param        id   path   string  true  "User ID (UUID atau index)"
+// @Success      200  {object} models.MetaInfo
+// @Failure      404  {object} models.MetaInfo
+// @Failure      403  {object} models.MetaInfo
+// @Router       /users/{id} [get]
 func (s *UserService) GetByID(c *fiber.Ctx) error {
     idParam := c.Params("id")
 
@@ -80,7 +100,18 @@ func (s *UserService) GetByID(c *fiber.Ctx) error {
 }
 
 
-
+// Create godoc
+// @Summary      Buat user baru
+// @Description  Membuat user beserta profil sesuai role
+// @Tags         Users
+// @Security     BearerAuth
+// @Accept       json
+// @Produce      json
+// @Param        body  body  models.UserCreateRequest  true  "Create user request"
+// @Success      201   {object} models.MetaInfo
+// @Failure      400   {object} models.MetaInfo
+// @Failure      403   {object} models.MetaInfo
+// @Router       /users [post]
 func (s *UserService) Create(c *fiber.Ctx) error {
 	var body models.UserCreateRequest
 
@@ -143,7 +174,19 @@ func (s *UserService) Create(c *fiber.Ctx) error {
 	})
 }
 
-
+// Update godoc
+// @Summary      Update user
+// @Description  Memperbarui data user
+// @Tags         Users
+// @Security     BearerAuth
+// @Accept       json
+// @Produce      json
+// @Param        id    path  string  true  "User ID"
+// @Param        body  body  models.UserUpdateRequest  true  "Update user request"
+// @Success      200   {object} models.MetaInfo
+// @Failure      400   {object} models.MetaInfo
+// @Failure      404   {object} models.MetaInfo
+// @Router       /users/{id} [put]
 func (s *UserService) Update(c *fiber.Ctx) error {
 	idParam := c.Params("id")
 
@@ -174,7 +217,17 @@ func (s *UserService) Update(c *fiber.Ctx) error {
 	return helper.Success(c, "User berhasil diperbarui", nil)
 }
 
-
+// Delete godoc
+// @Summary      Hapus user
+// @Description  Menghapus user beserta profil terkait
+// @Tags         Users
+// @Security     BearerAuth
+// @Produce      json
+// @Param        id   path   string  true  "User ID"
+// @Success      200  {object} models.MetaInfo
+// @Failure      404  {object} models.MetaInfo
+// @Failure      403  {object} models.MetaInfo
+// @Router       /users/{id} [delete]
 func (s *UserService) Delete(c *fiber.Ctx) error {
 	idParam := c.Params("id")
 
@@ -205,7 +258,19 @@ func (s *UserService) Delete(c *fiber.Ctx) error {
 	return helper.Success(c, "User berhasil dihapus", nil)
 }
 
-
+// UpdateRole godoc
+// @Summary      Update role user
+// @Description  Mengubah role user dan regenerate profil
+// @Tags         Users
+// @Security     BearerAuth
+// @Accept       json
+// @Produce      json
+// @Param        id    path  string  true  "User ID"
+// @Param        body  body  models.UserRoleUpdateRequest  true  "Update role request"
+// @Success      200   {object} models.MetaInfo
+// @Failure      400   {object} models.MetaInfo
+// @Failure      404   {object} models.MetaInfo
+// @Router       /users/{id}/role [put]
 func (s *UserService) UpdateRole(c *fiber.Ctx) error {
 	idParam := c.Params("id")
 

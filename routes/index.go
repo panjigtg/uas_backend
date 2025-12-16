@@ -10,6 +10,8 @@ type RouteContainer struct {
 	UserService 		*services.UserService
 	StudentService 		*services.StudentService
 	AchievementService 	*services.AchievementService
+	LecturerService 	*services.LecturerService
+	ReportService 		*services.ReportService
 }
 
 func RegisterRoutes(app *fiber.App, c *RouteContainer) {
@@ -21,4 +23,6 @@ func RegisterRoutes(app *fiber.App, c *RouteContainer) {
 	UserRoutes(api, c.UserService)
 	StudentRoutes(api, c.StudentService)
 	AchievementRoutes(api, c.AchievementService)
+	LecturerRoutes(api, c.LecturerService)
+	ReportRoutes(api, c.ReportService)
 }

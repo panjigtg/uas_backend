@@ -17,6 +17,7 @@ type StudentRepository interface {
 	FindAll(ctx context.Context) ([]models.Student, error)
     FindByID(ctx context.Context, id string) (*models.Student, error)
 	FindByAdvisorID(ctx context.Context, advisorID string) ([]models.Student, error)
+    FindAdviseesID(ctx context.Context, advisorID string) ([]models.AdviseeResponse, error)
 }
 
 type studentRepository struct {
@@ -210,4 +211,48 @@ func (r *studentRepository) FindByAdvisorID(ctx context.Context, advisorID strin
     }
 
     return list, nil
+}
+
+func (r *studentRepository) FindAdviseesID(
+	ctx context.Context,
+	advisorID string,
+) ([]models.AdviseeResponse, error) {
+
+	query := `
+		SELECT
+			s.id,
+			s.student_id,
+			u.username,
+			s.program_study,
+			s.academic_year,
+			s.created_at
+		FROM students s
+		JOIN users u ON u.id = s.user_id
+		WHERE s.advisor_id = $1
+	`
+
+	rows, err := r.DB.QueryContext(ctx, query, advisorID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var list []models.AdviseeResponse
+
+	for rows.Next() {
+		var a models.AdviseeResponse
+		if err := rows.Scan(
+			&a.ID,
+			&a.StudentID,
+			&a.Username,
+			&a.ProgramStudy,
+			&a.AcademicYear,
+			&a.CreatedAt,
+		); err != nil {
+			return nil, err
+		}
+		list = append(list, a)
+	}
+
+	return list, nil
 }

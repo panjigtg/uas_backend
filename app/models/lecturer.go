@@ -14,3 +14,12 @@ type LecturerReq struct {
     ID     string `db:"id"`
     UserID string `db:"user_id"`
 }
+
+type AdviseeResponse struct {
+	ID            string     `json:"id"`
+	StudentID     string     `json:"student_id"`
+	Username      string     `json:"username"`
+	ProgramStudy  *string    `json:"program_study"`
+	AcademicYear  *string    `json:"academic_year"`
+	CreatedAt     time.Time  `json:"created_at"`
+}
