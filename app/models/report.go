@@ -1,6 +1,6 @@
-package dto
+package models
 
-type ReportReferenceDTO struct {
+type ReportReference struct {
 	ID          string `json:"id"`
 	Status      string `json:"status"`
 	StudentID   string `json:"student_id"`
@@ -10,3 +10,9 @@ type ReportReferenceDTO struct {
 	VerifiedAt  any    `json:"verified_at,omitempty"`
 }
 
+type ReportAchievement struct {
+	ID    string `json:"id"`
+	Title string `json:"title"`
+	Type  string `json:"achievement_type"`
+	Point int    `json:"points"`
+}

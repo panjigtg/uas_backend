@@ -5,7 +5,6 @@ import (
 	"uas/app/models"
 	"uas/app/repository"
 	"uas/helper"
-	"uas/app/dto"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -117,8 +116,8 @@ func (s *ReportService) StudentReport(c *fiber.Ctx) error {
 
 	// local wrapper → ONLY for this endpoint
 	type Item struct {
-		Reference   dto.ReportReferenceDTO   `json:"reference"`
-		Achievement dto.ReportAchievementDTO `json:"achievement"`
+		Reference   models.ReportReference   `json:"reference"`
+		Achievement models.ReportAchievement `json:"achievement"`
 	}
 
 	var items []Item
@@ -133,7 +132,7 @@ func (s *ReportService) StudentReport(c *fiber.Ctx) error {
 		}
 
 		items = append(items, Item{
-			Reference: dto.ReportReferenceDTO{
+			Reference: models.ReportReference{
 				ID:          ref.ID,
 				Status:      ref.Status,
 				StudentID:   ref.StudentID,
@@ -142,7 +141,7 @@ func (s *ReportService) StudentReport(c *fiber.Ctx) error {
 				SubmittedAt: ref.SubmittedAt,
 				VerifiedAt:  ref.VerifiedAt,
 			},
-			Achievement: dto.ReportAchievementDTO{
+			Achievement: models.ReportAchievement{
 				ID:    ach.ID.Hex(),
 				Title: ach.Title,
 				Type:  ach.AchievementType,
