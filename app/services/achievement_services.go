@@ -1,6 +1,7 @@
 package services
 
 import (
+	"strings"
 	"time"
 	"uas/app/models"
 	"uas/app/repository"
@@ -143,25 +144,25 @@ func (s *AchievementService) List(c *fiber.Ctx) error {
 			continue
 		}
 
-		eventDate := ""
-		if ach.Details != nil {
-			if raw, ok := ach.Details["eventDate"]; ok && raw != nil {
-				eventDate = utils.FormatDate(raw)
-			}
-		}
+		// eventDate := ""
+		// if ach.Details != nil {
+		// 	if raw, ok := ach.Details["eventDate"]; ok && raw != nil {
+		// 		eventDate = utils.FormatDate(raw)
+		// 	}
+		// }
 
-		thumbnail := ""
-		if len(ach.Attachments) > 0 {
-			thumbnail = ach.Attachments[0].FileURL
-		}
+		// thumbnail := ""
+		// if len(ach.Attachments) > 0 {
+		// 	thumbnail = ach.Attachments[0].FileURL
+		// }
 
 		list = append(list, fiber.Map{
 			"id":           ach.ID.Hex(),
 			"title":        ach.Title,
 			"type":         ach.AchievementType,
 			"status":       ref.Status,
-			"event_date":   eventDate,
-			"thumbnail":    thumbnail,
+			// "event_date":   eventDate,
+			// "thumbnail":    thumbnail,
 			"updated_at":   ach.UpdatedAt,
 			"student_code": ref.StudentCode,
 			"student_name": ref.StudentName,
@@ -457,8 +458,18 @@ func (s *AchievementService) Reject(c *fiber.Ctx) error {
 	var body struct {
 		Note string `json:"note"`
 	}
+
+
 	if err := c.BodyParser(&body); err != nil {
 		return helper.BadRequest(c, "Format request salah", nil)
+	}
+
+	if strings.TrimSpace(body.Note) == "" {
+    return helper.BadRequest(
+        c,
+        "Catatan penolakan wajib diisi",
+        nil,
+    	)
 	}
 
 	ref, err := s.PgRepo.GetByMongoID(c.Context(), id)

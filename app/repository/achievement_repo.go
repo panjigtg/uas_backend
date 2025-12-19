@@ -8,6 +8,7 @@ import (
     "go.mongodb.org/mongo-driver/mongo"
     "go.mongodb.org/mongo-driver/bson"
     "go.mongodb.org/mongo-driver/bson/primitive"
+    "go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type AchievementMongoRepository interface {
@@ -40,12 +41,22 @@ func (r *achievementMongoRepository) FindByID(ctx context.Context, id string) (*
 		return nil, err
 	}
 
+    opts := options.FindOne().SetProjection(bson.M{
+        "description": 0,
+        "details":     0,
+        "tags":        0,
+        "points":      0,
+    })
 	var out models.AchievementMongo
-	err = r.col.FindOne(ctx, bson.M{
-		"_id":       objID,
-		"isDeleted": bson.M{"$ne": true},
-	}).Decode(&out)
-
+	err = r.col.FindOne(
+        ctx,
+        bson.M{
+            "_id": objID,
+            "isDeleted": bson.M{"$ne": true},
+        },
+        opts,
+    ).Decode(&out)
+    
 	if err != nil {
 		return nil, err
 	}
